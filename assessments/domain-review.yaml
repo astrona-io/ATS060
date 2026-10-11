@@ -1,0 +1,186 @@
+schema_version: 1
+kind: question_bank
+id: ats060-domain-review
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: domain
+  id: domain-review
+  title: Argo Workflows
+placement:
+  position: after
+  reading: sections/section-060/module-01/course-02-summary.md
+questions:
+- id: ats060-domain-review-q01
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain entrypoint, templates, arguments and task inputs.
+  source_readings:
+  - sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+  prompt: Which relationship should be checked first in a basic Workflow spec?
+  options:
+  - id: a
+    text: The UI theme matches the image color.
+    explanation: Presentation is unrelated.
+  - id: b
+    text: Every task uses the same random parameter.
+    explanation: Inputs need meaning rather than arbitrary uniformity.
+  - id: c
+    text: The entrypoint names a defined or properly referenced template.
+    explanation: Execution needs a valid starting definition.
+  correct_option: c
+  explanation: Execution needs a valid starting definition.
+- id: ats060-domain-review-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish retry, timeout and cleanup controls.
+  source_readings:
+  - sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+  prompt: How does retry differ from timeout?
+  options:
+  - id: a
+    text: Both grant missing API permissions.
+    explanation: Authorization is independent.
+  - id: b
+    text: Retry repeats eligible work; timeout bounds an execution interval.
+    explanation: They address different lifecycle problems.
+  - id: c
+    text: Both delete every artifact immediately.
+    explanation: Cleanup has a separate contract.
+  correct_option: b
+  explanation: They address different lifecycle problems.
+- id: ats060-domain-review-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Interpret status and external side effects separately from desired spec.
+  source_readings:
+  - sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+  prompt: Where is observed execution progress recorded?
+  options:
+  - id: a
+    text: Workflow status and task context.
+    explanation: Spec describes desired intent.
+  - id: b
+    text: Only the source repository's license.
+    explanation: A license is not runtime evidence.
+  - id: c
+    text: Only a template's display name.
+    explanation: Names do not establish completion.
+  correct_option: a
+  explanation: Spec describes desired intent.
+- id: ats060-domain-review-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain acyclic task dependencies and eligible parallelism.
+  source_readings:
+  - sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: What makes a dependency graph acyclic?
+  options:
+  - id: a
+    text: Every task runs at the same instant.
+    explanation: Independent work can be parallel without universal simultaneity.
+  - id: b
+    text: Every task must have exactly one child.
+    explanation: DAGs can branch and join.
+  - id: c
+    text: No dependency path returns to its own starting task.
+    explanation: That permits a coherent forward execution order.
+  correct_option: c
+  explanation: That permits a coherent forward execution order.
+- id: ats060-domain-review-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish data references from explicit scheduling dependencies.
+  source_readings:
+  - sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: Why define dependencies alongside output references?
+  options:
+  - id: a
+    text: Dependencies grant storage credentials.
+    explanation: Credential access is separate.
+  - id: b
+    text: A consumer must wait for the relevant producer outcome.
+    explanation: Data identity alone does not justify arbitrary scheduling.
+  - id: c
+    text: References always create every possible execution order automatically.
+    explanation: The supported dependency model still matters.
+  correct_option: b
+  explanation: Data identity alone does not justify arbitrary scheduling.
+- id: ats060-domain-review-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Interpret dependency results and fail-fast behavior.
+  source_readings:
+  - sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: What does fail-fast not guarantee?
+  options:
+  - id: a
+    text: Reversal of already completed external effects.
+    explanation: Scheduling policy is not a transaction rollback.
+  - id: b
+    text: A change to which new tasks become eligible.
+    explanation: That is within its relevant scheduling concern.
+  - id: c
+    text: Failure handling decisions.
+    explanation: Those are part of DAG execution semantics.
+  correct_option: a
+  explanation: Scheduling policy is not a transaction rollback.
+- id: ats060-domain-review-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Design partition, processing and aggregation stages.
+  source_readings:
+  - sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+  prompt: Why separate partitioning from aggregation?
+  options:
+  - id: a
+    text: Aggregation automatically creates missing inputs.
+    explanation: It cannot reconstruct arbitrary failed outputs.
+  - id: b
+    text: Every partition must use a different API administrator.
+    explanation: That is unrelated and overprivileged.
+  - id: c
+    text: The final stage needs a defined set of valid outputs.
+    explanation: The graph should express producer and consumer relationships.
+  correct_option: c
+  explanation: The graph should express producer and consumer relationships.
+- id: ats060-domain-review-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain parameterized fan-out and bounded parallelism.
+  source_readings:
+  - sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+  prompt: What bounds fan-out resource pressure?
+  options:
+  - id: a
+    text: Removing every resource requirement.
+    explanation: That weakens planning rather than bounding work.
+  - id: b
+    text: Supported parallelism controls plus appropriate task requests.
+    explanation: Eligibility and actual capacity are different.
+  - id: c
+    text: Only the dataset's display name.
+    explanation: A name does not limit execution.
+  correct_option: b
+  explanation: Eligibility and actual capacity are different.
+- id: ats060-domain-review-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Evaluate retries, partial results and external writes.
+  source_readings:
+  - sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+  prompt: Why make external writes idempotent or deduplicated?
+  options:
+  - id: a
+    text: Retries can repeat a partially completed operation.
+    explanation: Safe repetition requires an application contract.
+  - id: b
+    text: Argo guarantees every side effect occurs exactly once universally.
+    explanation: Execution retries do not provide that universal guarantee.
+  - id: c
+    text: Artifacts cannot ever be uploaded twice.
+    explanation: Repeated tasks can repeat uploads.
+  correct_option: a
+  explanation: Safe repetition requires an application contract.
