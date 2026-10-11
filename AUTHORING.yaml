@@ -1,0 +1,145 @@
+version: 1
+approval: CAPA requested 2026-10-11; established reading-only scope
+course:
+  id: ATS060
+  certification:
+    name: Certified Argo Project Associate
+    code: CAPA
+    provider: CNCF / Linux Foundation
+    domain: Argo Workflows
+    weight: 36
+    competencies:
+    - Understand Argo Workflow Fundamentals
+    - Generating and Consuming Artifacts
+    - Understand Argo Workflow Templates
+    - Understand the Argo Workflow Spec
+    - Work with DAG (Directed-Acyclic Graphs)
+    - Run Data Processing Jobs with Argo Workflows
+defaults:
+  playground: false
+  module_lab: false
+  capstone: false
+  section_quiz: false
+  final_quiz: true
+assessment_format: YAML question banks v1, registered in assessments/index.yaml
+sections:
+- id: section-010
+  title: Understand Argo Workflow Fundamentals
+  curriculum_item: Understand Argo Workflow Fundamentals
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Workflow Resources, Templates And Execution Ownership
+    objectives:
+    - Distinguish a Workflow execution from its reusable templates.
+    - Explain controller, Pod and executor responsibilities.
+    - Interpret entrypoint, arguments and node status.
+    - Evaluate identity and cleanup independently of execution success.
+    outline:
+    - Workflow Resources, Templates And Execution Ownership
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+      adapted_from: null
+- id: section-020
+  title: Generating and Consuming Artifacts
+  curriculum_item: Generating and Consuming Artifacts
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Generating, Storing And Consuming Workflow Artifacts
+    objectives:
+    - Distinguish artifacts from scalar parameters.
+    - Trace output files through repository storage and input references.
+    - Explain repository credentials and retention ownership.
+    - Evaluate archive behavior, missing outputs and retry side effects.
+    outline:
+    - Generating, Storing And Consuming Workflow Artifacts
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+      adapted_from: null
+- id: section-030
+  title: Understand Argo Workflow Templates
+  curriculum_item: Understand Argo Workflow Templates
+  capstone: false
+  section_quiz: true
+  modules:
+  - id: module-01
+    title: Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
+    objectives:
+    - Distinguish inline task templates from reusable resources.
+    - Compare namespaced WorkflowTemplate with ClusterWorkflowTemplate.
+    - Explain templateRef, workflowTemplateRef and supplied arguments.
+    - Evaluate definition changes, permissions and reproducibility.
+    outline:
+    - Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-030/module-01/course-01-reusable-workflowtemplate-and-clusterworkflowtemplate-definitions.md
+      adapted_from: null
+- id: section-040
+  title: Understand the Argo Workflow Spec
+  curriculum_item: Understand the Argo Workflow Spec
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Reading Workflow Spec Fields As Execution Decisions
+    objectives:
+    - Explain entrypoint, templates, arguments and task inputs.
+    - Relate resource, identity and placement settings to execution.
+    - Distinguish retry, timeout and cleanup controls.
+    - Interpret status and external side effects separately from desired spec.
+    outline:
+    - Reading Workflow Spec Fields As Execution Decisions
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+      adapted_from: null
+- id: section-050
+  title: Work with DAG (Directed-Acyclic Graphs)
+  curriculum_item: Work with DAG (Directed-Acyclic Graphs)
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: DAG Dependencies, Conditional Tasks And Parallel Work
+    objectives:
+    - Explain acyclic task dependencies and eligible parallelism.
+    - Distinguish data references from explicit scheduling dependencies.
+    - Interpret dependency results and fail-fast behavior.
+    - Evaluate outputs, retries and concurrency limits.
+    outline:
+    - DAG Dependencies, Conditional Tasks And Parallel Work
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+      adapted_from: null
+- id: section-060
+  title: Run Data Processing Jobs with Argo Workflows
+  curriculum_item: Run Data Processing Jobs with Argo Workflows
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Data Processing, Fan-Out And Reproducible Results
+    objectives:
+    - Design partition, processing and aggregation stages.
+    - Explain parameterized fan-out and bounded parallelism.
+    - Preserve artifact identity, validation and reproducibility.
+    - Evaluate retries, partial results and external writes.
+    outline:
+    - Data Processing, Fan-Out And Reproducible Results
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+      adapted_from: null
