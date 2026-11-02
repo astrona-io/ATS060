@@ -1,8 +1,8 @@
-# Preparation scaffold. Technical pages stay draft until authoring and review.
 training:
   id: ATS060
   title: 'CAPA: Argo Workflows'
-  description: Preparation scaffold for Argo Workflows. Lessons and environments are planned.
+  description: 'Detailed reading material and reusable YAML knowledge checks for CAPA:
+    Argo Workflows. Technical content remains draft. Private playgrounds and draft independent labs are included.'
   certification:
     name: Certified Argo Project Associate
     code: CAPA
@@ -19,7 +19,7 @@ training:
 modules:
 - id: module-intro
   title: Introduction
-  description: Planned introduction and authoring status.
+  description: Audience, reading method and review process.
   content:
   - type: reading
     title: Introduction
@@ -35,61 +35,249 @@ modules:
     path: sections/intro/course-03-how-this-course-is-made.md
 - id: module-010
   title: Understand Argo Workflow Fundamentals
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Understand Argo Workflow Fundamentals.
+  status: alpha
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-010/README.md
   - type: reading
     title: Understand Argo Workflow Fundamentals
+    path: sections/section-010/README.md
+  - type: reading
+    title: Workflow Resources, Templates And Execution Ownership
     path: sections/section-010/module-01/course.md
+  - type: reading
+    title: Workflow Resources, Templates And Execution Ownership
+    path: sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+  - type: reading
+    title: Run A Workflow Through The Executor — Task
+    path: sections/section-010/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Run A Workflow Through The Executor
+    path: sections/section-010/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Execute a Workflow and read its real output parameter.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Run A Workflow Through The Executor — Solution
+    path: sections/section-010/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Run A Workflow Through The Executor'
+    path: sections/section-010/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-01/course-03-summary.md
 - id: module-020
   title: Generating and Consuming Artifacts
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Generating and Consuming Artifacts.
+  status: alpha
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-020/README.md
   - type: reading
     title: Generating and Consuming Artifacts
+    path: sections/section-020/README.md
+  - type: reading
+    title: Generating, Storing And Consuming Workflow Artifacts
     path: sections/section-020/module-01/course.md
+  - type: reading
+    title: Generating, Storing And Consuming Workflow Artifacts
+    path: sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+  - type: reading
+    title: Produce Store And Consume An Artifact — Task
+    path: sections/section-020/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Produce Store And Consume An Artifact
+    path: sections/section-020/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Transfer a file through the artifact repository and consume its content.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Produce Store And Consume An Artifact — Solution
+    path: sections/section-020/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Produce Store And Consume An Artifact'
+    path: sections/section-020/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-01/course-03-summary.md
 - id: module-030
   title: Understand Argo Workflow Templates
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Understand Argo Workflow Templates.
+  status: alpha
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-030/README.md
   - type: reading
     title: Understand Argo Workflow Templates
+    path: sections/section-030/README.md
+  - type: reading
+    title: Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
     path: sections/section-030/module-01/course.md
+  - type: reading
+    title: Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
+    path: sections/section-030/module-01/course-01-reusable-workflowtemplate-and-clusterworkflowtemplate-definitions.md
+  - type: reading
+    title: Instantiate A Reusable WorkflowTemplate — Task
+    path: sections/section-030/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Instantiate A Reusable WorkflowTemplate
+    path: sections/section-030/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Separate a reusable definition from its execution.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Instantiate A Reusable WorkflowTemplate — Solution
+    path: sections/section-030/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: Instantiate A Cluster Scoped Template — Task
+    path: sections/section-030/module-01/labs/lab-02/question.md
+  - type: lab
+    title: Instantiate A Cluster Scoped Template
+    path: sections/section-030/module-01/labs/lab-02
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Execute a namespace Workflow from a cluster-scoped reusable definition.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Instantiate A Cluster Scoped Template — Solution
+    path: sections/section-030/module-01/labs/lab-02/solution.md
+  - type: reading
+    title: 'Guided Practice: Instantiate A Reusable WorkflowTemplate'
+    path: sections/section-030/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-01/course-03-summary.md
 - id: module-040
   title: Understand the Argo Workflow Spec
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Understand the Argo Workflow Spec.
+  status: alpha
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-040/README.md
   - type: reading
     title: Understand the Argo Workflow Spec
+    path: sections/section-040/README.md
+  - type: reading
+    title: Reading Workflow Spec Fields As Execution Decisions
     path: sections/section-040/module-01/course.md
+  - type: reading
+    title: Reading Workflow Spec Fields As Execution Decisions
+    path: sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+  - type: reading
+    title: Recover A Workflow Step With A Bounded Retry — Task
+    path: sections/section-040/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Recover A Workflow Step With A Bounded Retry
+    path: sections/section-040/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Fail the first attempt and complete the second attempt.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Recover A Workflow Step With A Bounded Retry — Solution
+    path: sections/section-040/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Recover A Workflow Step With A Bounded Retry'
+    path: sections/section-040/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-01/course-03-summary.md
 - id: module-050
   title: Work with DAG (Directed-Acyclic Graphs)
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Work with DAG (Directed-Acyclic
+    Graphs).
+  status: alpha
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-050/README.md
   - type: reading
     title: Work with DAG (Directed-Acyclic Graphs)
+    path: sections/section-050/README.md
+  - type: reading
+    title: DAG Dependencies, Conditional Tasks And Parallel Work
     path: sections/section-050/module-01/course.md
+  - type: reading
+    title: DAG Dependencies, Conditional Tasks And Parallel Work
+    path: sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  - type: reading
+    title: Execute A DAG Dependency — Task
+    path: sections/section-050/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Execute A DAG Dependency
+    path: sections/section-050/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Run the finish node only after prepare succeeds.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Execute A DAG Dependency — Solution
+    path: sections/section-050/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Execute A DAG Dependency'
+    path: sections/section-050/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-050/module-01/course-03-summary.md
 - id: module-060
   title: Run Data Processing Jobs with Argo Workflows
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Run Data Processing Jobs with Argo
+    Workflows.
+  status: alpha
   content:
   - type: reading
-    title: Section Overview
+    title: Run Data Processing Jobs with Argo Workflows
     path: sections/section-060/README.md
   - type: reading
-    title: Run Data Processing Jobs with Argo Workflows
+    title: Data Processing, Fan-Out And Reproducible Results
     path: sections/section-060/module-01/course.md
+  - type: reading
+    title: Data Processing, Fan-Out And Reproducible Results
+    path: sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+  - type: reading
+    title: Fan Out A Bounded Processing Job — Task
+    path: sections/section-060/module-01/labs/lab-01/question.md
+  - type: lab
+    title: Fan Out A Bounded Processing Job
+    path: sections/section-060/module-01/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Complete three independent processing nodes with bounded concurrency.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Fan Out A Bounded Processing Job — Solution
+    path: sections/section-060/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Fan Out A Bounded Processing Job'
+    path: sections/section-060/module-01/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-060/module-01/course-03-summary.md
