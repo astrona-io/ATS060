@@ -1,0 +1,87 @@
+{
+  "context": "kind-astro-ats-060-lab-060-01-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "mission",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "mission",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "pipeline",
+          "activeDeadlineSeconds": 180,
+          "templates": [
+            {
+              "name": "pipeline",
+              "steps": [
+                [
+                  {
+                    "name": "process",
+                    "template": "produce",
+                    "withItems": [
+                      "alpha",
+                      "beta",
+                      "gamma"
+                    ],
+                    "arguments": {
+                      "parameters": [
+                        {
+                          "name": "item",
+                          "value": "{{item}}"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              ]
+            },
+            {
+              "name": "produce",
+              "container": {
+                "image": "docker.io/library/python:3.13-alpine",
+                "command": [
+                  "python",
+                  "-c"
+                ],
+                "args": [
+                  "text=\"{{inputs.parameters.item}}\".upper(); open(\"/tmp/processed\",\"w\").write(text); open(\"/tmp/result\",\"w\").write(\"mission-complete\")"
+                ]
+              },
+              "outputs": {
+                "parameters": [
+                  {
+                    "name": "result",
+                    "valueFrom": {
+                      "path": "/tmp/result"
+                    }
+                  },
+                  {
+                    "name": "processed",
+                    "valueFrom": {
+                      "path": "/tmp/processed"
+                    }
+                  }
+                ]
+              },
+              "inputs": {
+                "parameters": [
+                  {
+                    "name": "item"
+                  }
+                ]
+              }
+            }
+          ],
+          "parallelism": 2
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

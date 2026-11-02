@@ -1,0 +1,107 @@
+---
+draft: true
+exam_objectives:
+- Generating and Consuming Artifacts
+---
+# Produce Store And Consume An Artifact Solution
+
+Use a host shell with the private kubeconfig for this independent kind environment. A kubeconfig identifies the cluster and credentials used by kubectl, the Kubernetes command-line tool.
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-060-lab-020-01-01)"
+test "$(kubectl config current-context)" = "kind-astro-ats-060-lab-020-01-01" || exit 1
+node_name="astro-ats-060-lab-020-01-01-control-plane"
+worker_name="astro-ats-060-lab-020-01-01-worker"
+```
+
+Keep this connection selected. Host-level commands name only this environment's node containers. They do not operate on the host operating system.
+
+## Inspect And Explain
+
+The Workflows controller and an internal disposable artifact store are installed. The workflow-runner ServiceAccount can create executor results. No learner Workflow exists. Artifact credentials are private fixture credentials.
+
+Inspect the current objects before changing them:
+
+```sh
+kubectl -n starfleet get pods -o wide
+kubectl get nodes -o wide
+```
+
+The producer uploads payload to private MinIO, and a different Pod downloads it. Check the consumed output, not only an S3 URL. Credentials belong to the disposable namespace and are not production secrets.
+
+Save this as `workflow-mission.yaml`:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: mission
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 180
+  templates:
+  - name: pipeline
+    steps:
+    - - name: produce
+        template: produce
+    - - name: consume
+        template: consume
+        arguments:
+          artifacts:
+          - name: payload
+            from: '{{steps.produce.outputs.artifacts.payload}}'
+  - name: produce
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/payload","w").write("mission-complete")
+    outputs:
+      artifacts:
+      - name: payload
+        path: /tmp/payload
+  - name: consume
+    inputs:
+      artifacts:
+      - name: payload
+        path: /tmp/input
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - text=open("/tmp/input").read(); assert text=="mission-complete"; open("/tmp/result","w").write(text)
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result
+```
+
+Apply the scoped correction:
+
+```sh
+kubectl apply -f workflow-mission.yaml
+```
+
+## Verify The Result
+
+Observe the actual result. A denied request returns a nonzero status when the denial works, so run it separately from a shell sequence that stops on error. Status convergence and a successful request establish different parts of the result.
+
+```sh
+kubectl -n starfleet wait --for=jsonpath='{.status.phase}'=Succeeded workflow/mission --timeout=240s
+```
+
+Transfer a file through the artifact repository and consume its content. The commands above deliberately target one environment. Keep its remaining components available so an unrelated failure cannot stand in for the required denial or correction. No example command output is presented as evidence of a completed run. A matching field alone does not establish that a process used it or that a controller reconciled it.
+
+After recording your result, remove the independent lab with `astrona destroy ats-060-lab-020-01-01`.
+
+## Common pitfalls
+
+> [!WARNING]
+> Confirm the private context and exact node names before a change. Check the stated scope and live result. Do not change unrelated components to hide the original fault.

@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: mission
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 180
+  templates:
+  - name: pipeline
+    steps:
+    - - name: produce
+        template: produce
+    - - name: consume
+        template: consume
+        arguments:
+          artifacts:
+          - name: payload
+            from: '{{steps.produce.outputs.artifacts.payload}}'
+  - name: produce
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/payload","w").write("mission-complete")
+    outputs:
+      artifacts:
+      - name: payload
+        path: /tmp/payload
+  - name: consume
+    inputs:
+      artifacts:
+      - name: payload
+        path: /tmp/input
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - text=open("/tmp/input").read(); assert text=="mission-complete"; open("/tmp/result","w").write(text)
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result
