@@ -36,7 +36,7 @@ modules:
 - id: module-010
   title: Understand Argo Workflow Fundamentals
   description: Developed reading and reasoning for Understand Argo Workflow Fundamentals.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Understand Argo Workflow Fundamentals
@@ -74,7 +74,7 @@ modules:
 - id: module-020
   title: Generating and Consuming Artifacts
   description: Developed reading and reasoning for Generating and Consuming Artifacts.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Generating and Consuming Artifacts
@@ -112,7 +112,7 @@ modules:
 - id: module-030
   title: Understand Argo Workflow Templates
   description: Developed reading and reasoning for Understand Argo Workflow Templates.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Understand Argo Workflow Templates
@@ -168,7 +168,7 @@ modules:
 - id: module-040
   title: Understand the Argo Workflow Spec
   description: Developed reading and reasoning for Understand the Argo Workflow Spec.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Understand the Argo Workflow Spec
@@ -207,7 +207,7 @@ modules:
   title: Work with DAG (Directed-Acyclic Graphs)
   description: Developed reading and reasoning for Work with DAG (Directed-Acyclic
     Graphs).
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Work with DAG (Directed-Acyclic Graphs)
@@ -246,7 +246,7 @@ modules:
   title: Run Data Processing Jobs with Argo Workflows
   description: Developed reading and reasoning for Run Data Processing Jobs with Argo
     Workflows.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Run Data Processing Jobs with Argo Workflows
