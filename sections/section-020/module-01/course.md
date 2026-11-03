@@ -5,20 +5,24 @@ exam_objectives:
 ---
 # Generating, Storing And Consuming Workflow Artifacts
 
-This module develops generating, Storing And Consuming Workflow Artifacts. Use the explanations to connect intended behavior with responsible components and observable evidence.
+This module explains artifacts: files that tasks produce and consume, how Argo stores them in an artifact repository, and how an output of one task becomes the input of another.
 
 ## Learning Goals
 
 - Distinguish artifacts from scalar parameters.
 - Trace output files through repository storage and input references.
-- Explain repository credentials and retention ownership.
-- Evaluate archive behavior, missing outputs and retry side effects.
+- Explain repository credentials and where the repository is configured.
+- Evaluate missing outputs, wrong paths and repository failures.
 
 ## Before You Start
 
-Examples illustrate declared relationships and reasoning. No execution environment is required or claimed.
+You need basic `kubectl` skills and the idea of a Kubernetes pod. The module playground is a private kind cluster with Argo Workflows installed. The hands-on steps start the playground when you reach them.
 
 ## Reading Order
 
-1. Generating, Storing And Consuming Workflow Artifacts
-2. Summary
+1. Artifacts Compared With Parameters
+2. The Artifact Repository
+3. Guided Practice: Produce Store And Consume An Artifact
+4. Summary
+
+<!-- astrona:playground -->

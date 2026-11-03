@@ -1,0 +1,243 @@
+# Knowledge check for section 050. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats060-050
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-050
+  title: "Work with DAG (Directed-Acyclic Graphs)"
+questions:
+  - id: ats060-050-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "DAG definition"
+    source_readings:
+      - sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
+    prompt: "What makes a graph acyclic?"
+    options:
+      - id: a
+        text: "No task may have more than one dependency"
+        explanation: "Joins need many dependencies."
+      - id: b
+        text: "Following dependencies never leads back to the same task"
+        explanation: "Correct."
+      - id: c
+        text: "Every task has a different template"
+        explanation: "Templates can repeat."
+      - id: d
+        text: "Tasks run in the listed order"
+        explanation: "List order creates no order."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Order"
+    source_readings:
+      - sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
+    prompt: "Task B is listed after task A and has no dependency fields. When may B start?"
+    options:
+      - id: a
+        text: "After A finishes"
+        explanation: "No dependency says that."
+      - id: b
+        text: "At once, with A"
+        explanation: "Correct: nothing makes it wait."
+      - id: c
+        text: "Never"
+        explanation: "It is eligible."
+      - id: d
+        text: "After the workflow ends"
+        explanation: "Nothing delays it that long."
+    correct_option: b
+    explanation: "Correct: nothing makes it wait."
+
+  - id: ats060-050-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Depends results"
+    source_readings:
+      - sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
+    prompt: "Which expression runs a task only after the task build has failed?"
+    options:
+      - id: a
+        text: "build.Succeeded"
+        explanation: "That is the success case."
+      - id: b
+        text: "build.Failed"
+        explanation: "Correct."
+      - id: c
+        text: "!build.Failed"
+        explanation: "That is the opposite."
+      - id: d
+        text: "build"
+        explanation: "The shortcut accepts success or skipped."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Field mixing"
+    source_readings:
+      - sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
+    prompt: "Can one task use both dependencies and depends?"
+    options:
+      - id: a
+        text: "Yes, they are combined"
+        explanation: "They are not combined."
+      - id: b
+        text: "No, a task uses one of them"
+        explanation: "Correct."
+      - id: c
+        text: "Only in a steps template"
+        explanation: "Steps have no such fields."
+      - id: d
+        text: "Only with failFast false"
+        explanation: "The setting is unrelated."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Output references"
+    source_readings:
+      - sections/section-050/module-01/course-02-data-flow-fail-fast-and-parallelism-in-dags.md
+    prompt: "A task reads tasks.measure.outputs.parameters.reading but does not depend on measure. What is the problem?"
+    options:
+      - id: a
+        text: "None"
+        explanation: "The order is missing."
+      - id: b
+        text: "The reference creates no order"
+        explanation: "Correct."
+      - id: c
+        text: "The tag is invalid in a DAG"
+        explanation: "The tag is valid."
+      - id: d
+        text: "The output is a secret"
+        explanation: "Nothing is secret here."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Fail-fast"
+    source_readings:
+      - sections/section-050/module-01/course-02-data-flow-fail-fast-and-parallelism-in-dags.md
+    prompt: "What does failFast set to false change?"
+    options:
+      - id: a
+        text: "It stops running pods"
+        explanation: "It never stops running pods."
+      - id: b
+        text: "Other branches that can still run go on to completion"
+        explanation: "Correct."
+      - id: c
+        text: "It retries failed tasks"
+        explanation: "Retries are a separate field."
+      - id: d
+        text: "It hides failures"
+        explanation: "The final phase is still failed."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Skipped or omitted"
+    source_readings:
+      - sections/section-050/module-02/course-01-conditional-tasks-with-when-and-depends.md
+    prompt: "Which phase does a task get when its when condition is false?"
+    options:
+      - id: a
+        text: "Omitted"
+        explanation: "That is for depends."
+      - id: b
+        text: "Skipped"
+        explanation: "Correct."
+      - id: c
+        text: "Failed"
+        explanation: "Nothing failed."
+      - id: d
+        text: "Errored"
+        explanation: "Nothing errored."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Join of alternatives"
+    source_readings:
+      - sections/section-050/module-02/course-01-conditional-tasks-with-when-and-depends.md
+    prompt: "Two branches have opposite when conditions. Which field joins them so that the join runs after whichever branch ran?"
+    options:
+      - id: a
+        text: "dependencies listing both"
+        explanation: "It needs both to succeed."
+      - id: b
+        text: "depends: a || b"
+        explanation: "Correct."
+      - id: c
+        text: "failFast: false"
+        explanation: "It does not express this."
+      - id: d
+        text: "withItems"
+        explanation: "It loops."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Loops"
+    source_readings:
+      - sections/section-050/module-02/course-02-fan-out-with-loops-and-aggregation.md
+    prompt: "Which loop field takes a JSON array produced by an earlier task?"
+    options:
+      - id: a
+        text: "withItems"
+        explanation: "It takes a literal list."
+      - id: b
+        text: "withParam"
+        explanation: "Correct."
+      - id: c
+        text: "withSequence"
+        explanation: "It takes a count."
+      - id: d
+        text: "parallelism"
+        explanation: "It limits concurrency."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-050-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Aggregation"
+    source_readings:
+      - sections/section-050/module-02/course-02-fan-out-with-loops-and-aggregation.md
+    prompt: "What must each iteration print so that the outputs aggregate as a JSON array?"
+    options:
+      - id: a
+        text: "Any text"
+        explanation: "Plain text breaks the parse."
+      - id: b
+        text: "Valid JSON"
+        explanation: "Correct."
+      - id: c
+        text: "An exit code"
+        explanation: "The exit code is separate."
+      - id: d
+        text: "Nothing"
+        explanation: "Nothing gives no output."
+    correct_option: b
+    explanation: "Correct."
+

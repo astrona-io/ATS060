@@ -1,0 +1,38 @@
+{
+  "context": "kind-astro-ats-060-capstone-010-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "fleet-report",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "fleet-report",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "pipeline",
+          "arguments": {
+            "parameters": [
+              {
+                "name": "crew",
+                "value": "bridge"
+              }
+            ]
+          },
+          "ttlStrategy": {
+            "secondsAfterSuccess": 3600,
+            "secondsAfterFailure": 86400
+          },
+          "podGC": {
+            "strategy": "OnPodSuccess"
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

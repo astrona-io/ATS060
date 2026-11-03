@@ -1,0 +1,27 @@
+{
+  "context": "kind-astro-ats-060-capstone-020-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "data-flow",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "data-flow",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "pipeline",
+          "artifactGC": {
+            "strategy": "OnWorkflowDeletion",
+            "serviceAccountName": "workflow-runner"
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

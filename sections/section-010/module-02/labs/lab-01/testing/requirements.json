@@ -1,0 +1,37 @@
+{
+  "context": "kind-astro-ats-060-lab-010-02-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "launch-report",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "launch-report",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "report",
+          "arguments": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "launch-approved"
+              }
+            ]
+          },
+          "ttlStrategy": {
+            "secondsAfterCompletion": 3600
+          },
+          "podGC": {
+            "strategy": "OnWorkflowCompletion"
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

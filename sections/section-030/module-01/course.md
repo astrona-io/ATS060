@@ -5,20 +5,24 @@ exam_objectives:
 ---
 # Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
 
-This module develops reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions. Use the explanations to connect intended behavior with responsible components and observable evidence.
+This module covers stored workflow definitions: the namespaced WorkflowTemplate, the cluster-scoped ClusterWorkflowTemplate, the two kinds of reference, and who may create and use them.
 
 ## Learning Goals
 
-- Distinguish inline task templates from reusable resources.
-- Compare namespaced WorkflowTemplate with ClusterWorkflowTemplate.
-- Explain templateRef, workflowTemplateRef and supplied arguments.
-- Evaluate definition changes, permissions and reproducibility.
+- Separate a reusable definition from its execution.
+- Choose between workflowTemplateRef and templateRef.
+- Execute a namespace Workflow from a cluster-scoped reusable definition.
+- Explain what is copied into a run and who needs which permission.
 
 ## Before You Start
 
-Examples illustrate declared relationships and reasoning. No execution environment is required or claimed.
+You need basic `kubectl` skills and the idea of a Kubernetes pod. The module playground is a private kind cluster with Argo Workflows installed. The hands-on steps start the playground when you reach them.
 
 ## Reading Order
 
-1. Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
-2. Summary
+1. WorkflowTemplate Definitions And References
+2. ClusterWorkflowTemplate, Scope And Access
+3. Guided Practice: Instantiate A Reusable WorkflowTemplate
+4. Summary
+
+<!-- astrona:playground -->

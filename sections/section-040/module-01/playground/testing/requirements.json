@@ -1,0 +1,53 @@
+{
+  "context": "kind-astro-ats-060-playground-040-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "mission",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "mission",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "produce",
+          "activeDeadlineSeconds": 180,
+          "templates": [
+            {
+              "name": "produce",
+              "container": {
+                "image": "docker.io/library/python:3.13-alpine",
+                "command": [
+                  "python",
+                  "-c"
+                ],
+                "args": [
+                  "import sys; attempt=int(\"{{retries}}\"); sys.exit(17) if attempt==0 else open(\"/tmp/result\",\"w\").write(\"mission-complete\")"
+                ]
+              },
+              "outputs": {
+                "parameters": [
+                  {
+                    "name": "result",
+                    "valueFrom": {
+                      "path": "/tmp/result"
+                    }
+                  }
+                ]
+              },
+              "retryStrategy": {
+                "limit": "1",
+                "retryPolicy": "OnFailure"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

@@ -1,0 +1,36 @@
+{
+  "context": "kind-astro-ats-060-capstone-040-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "survey-run",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "survey-run",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "survey",
+          "activeDeadlineSeconds": 240,
+          "parallelism": 1,
+          "ttlStrategy": {
+            "secondsAfterCompletion": 3600
+          },
+          "arguments": {
+            "parameters": [
+              {
+                "name": "ship",
+                "value": "voyager"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

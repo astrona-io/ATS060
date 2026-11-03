@@ -1,0 +1,24 @@
+{
+  "context": "kind-astro-ats-060-lab-040-02-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "resourced",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "resourced",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "write",
+          "activeDeadlineSeconds": 180
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

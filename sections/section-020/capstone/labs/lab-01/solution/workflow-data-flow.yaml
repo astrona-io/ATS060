@@ -1,0 +1,80 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: data-flow
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 240
+  artifactGC:
+    strategy: OnWorkflowDeletion
+    serviceAccountName: workflow-runner
+  templates:
+  - name: pipeline
+    steps:
+    - - name: generate
+        template: generate
+    - - name: transform
+        template: transform
+        arguments:
+          artifacts:
+          - name: source
+            from: '{{steps.generate.outputs.artifacts.source}}'
+    - - name: summarise
+        template: summarise
+        arguments:
+          artifacts:
+          - name: final
+            from: '{{steps.transform.outputs.artifacts.final}}'
+  - name: generate
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/source","w").write("probe data")
+    outputs:
+      artifacts:
+      - name: source
+        path: /tmp/source
+  - name: transform
+    inputs:
+      artifacts:
+      - name: source
+        path: /tmp/in
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/final","w").write(open("/tmp/in").read().upper())
+    outputs:
+      artifacts:
+      - name: final
+        path: /tmp/final
+        archive:
+          none: {}
+        s3:
+          key: '{{workflow.name}}/final.txt'
+        artifactGC:
+          strategy: Never
+  - name: summarise
+    inputs:
+      artifacts:
+      - name: final
+        path: /tmp/final
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/result","w").write(open("/tmp/final").read())
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

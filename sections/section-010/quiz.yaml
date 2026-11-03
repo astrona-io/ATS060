@@ -1,0 +1,243 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats060-010
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-010
+  title: "Understand Argo Workflow Fundamentals"
+questions:
+  - id: ats060-010-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the object kinds that Argo Workflows adds"
+    source_readings:
+      - sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+    prompt: "Which object kind is a reusable definition in one namespace that does not run by itself?"
+    options:
+      - id: a
+        text: "Workflow"
+        explanation: "A Workflow is one run, not a reusable definition."
+      - id: b
+        text: "WorkflowTemplate"
+        explanation: "Correct. A WorkflowTemplate stores templates that a Workflow can reference."
+      - id: c
+        text: "CronWorkflow"
+        explanation: "A CronWorkflow creates Workflows on a schedule."
+      - id: d
+        text: "WorkflowTaskResult"
+        explanation: "A WorkflowTaskResult carries task outputs from a pod to the controller."
+    correct_option: b
+    explanation: "Correct. A WorkflowTemplate stores templates that a Workflow can reference."
+
+  - id: ats060-010-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify the field that names the first template"
+    source_readings:
+      - sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+    prompt: "Which field of a Workflow spec names the template where execution starts?"
+    options:
+      - id: a
+        text: "spec.start"
+        explanation: "No such field exists in the Workflow spec."
+      - id: b
+        text: "spec.entrypoint"
+        explanation: "Correct. The entrypoint names the template that runs first."
+      - id: c
+        text: "spec.arguments"
+        explanation: "Arguments carry parameter values, not the starting template."
+      - id: d
+        text: "metadata.generateName"
+        explanation: "generateName only sets a name prefix."
+    correct_option: b
+    explanation: "Correct. The entrypoint names the template that runs first."
+
+  - id: ats060-010-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain which component creates pods"
+    source_readings:
+      - sections/section-010/module-01/course-02-controller-pods-and-executor.md
+    prompt: "Which component creates the pod for a container template node?"
+    options:
+      - id: a
+        text: "The kubelet"
+        explanation: "The kubelet runs pods that already exist; it does not create them from a Workflow."
+      - id: b
+        text: "The Argo Server"
+        explanation: "The Argo Server is optional and only offers a web interface and API."
+      - id: c
+        text: "The workflow controller"
+        explanation: "Correct. The controller reconciles the Workflow and creates a pod for each ready work node."
+      - id: d
+        text: "The wait container"
+        explanation: "The wait container runs inside an existing pod to collect outputs."
+    correct_option: c
+    explanation: "Correct. The controller reconciles the Workflow and creates a pod for each ready work node."
+
+  - id: ats060-010-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe how outputs reach the controller"
+    source_readings:
+      - sections/section-010/module-01/course-02-controller-pods-and-executor.md
+    prompt: "A container exits with code 0 and writes its output file, but the node fails at the end and the wait container log shows a forbidden request. What is the most likely cause?"
+    options:
+      - id: a
+        text: "The image cannot be pulled"
+        explanation: "An image pull problem keeps the pod from starting; here the container ran."
+      - id: b
+        text: "The ServiceAccount cannot create workflowtaskresults"
+        explanation: "Correct. The executor reports outputs with a WorkflowTaskResult, and a forbidden create request fails the node."
+      - id: c
+        text: "The entrypoint template is missing"
+        explanation: "A missing entrypoint is rejected before any pod runs."
+      - id: d
+        text: "The parameter value contains a quote"
+        explanation: "A quote problem breaks the command before it runs."
+    correct_option: b
+    explanation: "Correct. The executor reports outputs with a WorkflowTaskResult, and a forbidden create request fails the node."
+
+  - id: ats060-010-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret workflow and node phases"
+    source_readings:
+      - sections/section-010/module-01/course-02-controller-pods-and-executor.md
+    prompt: "Which statement about the phase Error is correct?"
+    options:
+      - id: a
+        text: "A node ran and exited with a non-zero code"
+        explanation: "That is the Failed phase."
+      - id: b
+        text: "The controller met a problem outside the application code, such as an invalid template"
+        explanation: "Correct. Error marks a problem outside the application code."
+      - id: c
+        text: "The workflow is waiting for a pod to be scheduled"
+        explanation: "A pod that waits for scheduling keeps the node Pending."
+      - id: d
+        text: "The workflow was suspended by a person"
+        explanation: "Suspension is a separate template type, not the Error phase."
+    correct_option: b
+    explanation: "Correct. Error marks a problem outside the application code."
+
+  - id: ats060-010-q06
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose the right command to create a Workflow with generateName"
+    source_readings:
+      - sections/section-010/module-02/course-01-submitting-workflows-and-parameters.md
+    prompt: "A Workflow file has metadata.generateName and no metadata.name. Which command creates it?"
+    options:
+      - id: a
+        text: "kubectl apply -f file.yaml"
+        explanation: "Apply needs a fixed name to compare with the stored object."
+      - id: b
+        text: "kubectl create -f file.yaml"
+        explanation: "Correct. Create lets the API server generate the unique name."
+      - id: c
+        text: "kubectl patch -f file.yaml"
+        explanation: "Patch changes an existing object."
+      - id: d
+        text: "kubectl replace -f file.yaml"
+        explanation: "Replace needs an existing object with a fixed name."
+    correct_option: b
+    explanation: "Correct. Create lets the API server generate the unique name."
+
+  - id: ats060-010-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain where parameter tags are replaced"
+    source_readings:
+      - sections/section-010/module-02/course-01-submitting-workflows-and-parameters.md
+    prompt: "When does the value of {{inputs.parameters.message}} replace the tag?"
+    options:
+      - id: a
+        text: "Inside the container when the process reads its arguments"
+        explanation: "The container never sees the braces; the text is already replaced."
+      - id: b
+        text: "In the controller, before the pod is created"
+        explanation: "Correct. The controller replaces the tags when it processes the template."
+      - id: c
+        text: "In the executor after the container ends"
+        explanation: "The executor only collects outputs."
+      - id: d
+        text: "In the API server when the object is stored"
+        explanation: "The API server stores the object without evaluating tags."
+    correct_option: b
+    explanation: "Correct. The controller replaces the tags when it processes the template."
+
+  - id: ats060-010-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a safe way to pass confidential data"
+    source_readings:
+      - sections/section-010/module-02/course-01-submitting-workflows-and-parameters.md
+    prompt: "A task needs a password. What is the safest way to give it to the task?"
+    options:
+      - id: a
+        text: "An argument parameter"
+        explanation: "Parameter values are visible in the Workflow object."
+      - id: b
+        text: "A workflow-level parameter default"
+        explanation: "Defaults are stored in the spec and are visible too."
+      - id: c
+        text: "A Kubernetes Secret mounted as an environment variable or volume"
+        explanation: "Correct. A Secret keeps the value out of the Workflow object."
+      - id: d
+        text: "The workflow name"
+        explanation: "The name is public metadata."
+    correct_option: c
+    explanation: "Correct. A Secret keeps the value out of the Workflow object."
+
+  - id: ats060-010-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Select the retention fields for a stated need"
+    source_readings:
+      - sections/section-010/module-02/course-02-observing-results-and-cleanup.md
+    prompt: "Successful runs must disappear after one hour and failed runs must stay for a day. Which fields meet this?"
+    options:
+      - id: a
+        text: "podGC.strategy: OnPodCompletion only"
+        explanation: "podGC removes pods, not the Workflow object."
+      - id: b
+        text: "ttlStrategy.secondsAfterSuccess: 3600 and ttlStrategy.secondsAfterFailure: 86400"
+        explanation: "Correct. ttlStrategy sets different times for success and failure."
+      - id: c
+        text: "activeDeadlineSeconds: 3600"
+        explanation: "activeDeadlineSeconds limits the run time."
+      - id: d
+        text: "archiveLogs: true"
+        explanation: "archiveLogs saves logs and does not delete anything."
+    correct_option: b
+    explanation: "Correct. ttlStrategy sets different times for success and failure."
+
+  - id: ats060-010-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain what pod garbage collection removes"
+    source_readings:
+      - sections/section-010/module-02/course-02-observing-results-and-cleanup.md
+    prompt: "A team sets podGC.strategy to OnWorkflowCompletion and later runs kubectl logs on a pod of a finished run. What happens?"
+    options:
+      - id: a
+        text: "The logs print normally"
+        explanation: "The pod is gone, so its logs are gone."
+      - id: b
+        text: "The request fails because the pod no longer exists"
+        explanation: "Correct. Deleting a pod removes its logs from the cluster."
+      - id: c
+        text: "The controller restores the pod"
+        explanation: "The controller does not recreate completed pods."
+      - id: d
+        text: "The logs come from the Workflow status"
+        explanation: "Status holds node results, not container logs."
+    correct_option: b
+    explanation: "Correct. Deleting a pod removes its logs from the cluster."
+

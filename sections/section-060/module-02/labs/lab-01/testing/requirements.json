@@ -1,0 +1,34 @@
+{
+  "context": "kind-astro-ats-060-lab-060-02-01",
+  "resources": [
+    {
+      "kind": "cronworkflow",
+      "name": "nightly-scan",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "CronWorkflow",
+        "metadata": {
+          "name": "nightly-scan",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "schedules": [
+            "0 3 * * *"
+          ],
+          "timezone": "UTC",
+          "concurrencyPolicy": "Forbid",
+          "startingDeadlineSeconds": 120,
+          "successfulJobsHistoryLimit": 2,
+          "failedJobsHistoryLimit": 1,
+          "workflowSpec": {
+            "serviceAccountName": "workflow-runner",
+            "entrypoint": "main",
+            "activeDeadlineSeconds": 180
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

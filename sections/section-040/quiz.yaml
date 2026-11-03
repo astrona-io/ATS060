@@ -1,0 +1,243 @@
+# Knowledge check for section 040. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats060-040
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-040
+  title: "Understand the Argo Workflow Spec"
+questions:
+  - id: ats060-040-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Entrypoint"
+    source_readings:
+      - sections/section-040/module-01/course-01-workflow-spec-structure-entrypoint-templates-and-arguments.md
+    prompt: "What does the entrypoint field of a Workflow spec do?"
+    options:
+      - id: a
+        text: "It selects the template where execution starts"
+        explanation: "Correct."
+      - id: b
+        text: "It names the namespace"
+        explanation: "The namespace is in metadata."
+      - id: c
+        text: "It sets the image"
+        explanation: "Images are set in container templates."
+      - id: d
+        text: "It sets the retry limit"
+        explanation: "Retries are set in retryStrategy."
+    correct_option: a
+    explanation: "Correct."
+
+  - id: ats060-040-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Tag scope"
+    source_readings:
+      - sections/section-040/module-01/course-01-workflow-spec-structure-entrypoint-templates-and-arguments.md
+    prompt: "Which tag reads a workflow-level parameter named ship?"
+    options:
+      - id: a
+        text: "{{workflow.parameters.ship}}"
+        explanation: "Correct."
+      - id: b
+        text: "{{inputs.parameters.ship}}"
+        explanation: "Inputs hold values declared by the template."
+      - id: c
+        text: "{{steps.ship}}"
+        explanation: "Steps tags read step outputs."
+      - id: d
+        text: "{{item.ship}}"
+        explanation: "Item tags belong to loops."
+    correct_option: a
+    explanation: "Correct."
+
+  - id: ats060-040-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Validation scope"
+    source_readings:
+      - sections/section-040/module-01/course-01-workflow-spec-structure-entrypoint-templates-and-arguments.md
+    prompt: "Which problem is found only when the pod starts?"
+    options:
+      - id: a
+        text: "A misspelled entrypoint"
+        explanation: "The controller checks this."
+      - id: b
+        text: "A duplicate template name"
+        explanation: "The controller checks this."
+      - id: c
+        text: "An image that cannot be pulled"
+        explanation: "Correct: image pulls happen at runtime."
+      - id: d
+        text: "A required parameter with no value"
+        explanation: "The workflow does not start without it."
+    correct_option: c
+    explanation: "Correct: image pulls happen at runtime."
+
+  - id: ats060-040-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Retry count"
+    source_readings:
+      - sections/section-040/module-01/course-02-lifecycle-controls-retry-deadline-parallelism-and-cleanup.md
+    prompt: "A template has retryStrategy limit \"3\". How many times can a node run at most?"
+    options:
+      - id: a
+        text: "3"
+        explanation: "That omits the first attempt."
+      - id: b
+        text: "4"
+        explanation: "Correct: one first attempt and three retries."
+      - id: c
+        text: "6"
+        explanation: "Not a valid count."
+      - id: d
+        text: "1"
+        explanation: "That ignores the strategy."
+    correct_option: b
+    explanation: "Correct: one first attempt and three retries."
+
+  - id: ats060-040-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Retry risk"
+    source_readings:
+      - sections/section-040/module-01/course-02-lifecycle-controls-retry-deadline-parallelism-and-cleanup.md
+    prompt: "A container writes a database row and then fails. What does a retry do?"
+    options:
+      - id: a
+        text: "It rolls the row back"
+        explanation: "The controller cannot undo effects."
+      - id: b
+        text: "It runs the container again and can write the row again"
+        explanation: "Correct."
+      - id: c
+        text: "It skips the write"
+        explanation: "The container runs in full."
+      - id: d
+        text: "It deduplicates the row"
+        explanation: "Only the application can deduplicate."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-040-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Cleanup"
+    source_readings:
+      - sections/section-040/module-01/course-02-lifecycle-controls-retry-deadline-parallelism-and-cleanup.md
+    prompt: "Which field deletes the Workflow object after it ends?"
+    options:
+      - id: a
+        text: "podGC"
+        explanation: "podGC deletes pods."
+      - id: b
+        text: "ttlStrategy"
+        explanation: "Correct."
+      - id: c
+        text: "parallelism"
+        explanation: "It limits concurrency."
+      - id: d
+        text: "onExit"
+        explanation: "It runs a template."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-040-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Requests and limits"
+    source_readings:
+      - sections/section-040/module-02/course-01-resources-identity-placement-and-volumes.md
+    prompt: "A pod requests more memory than any node offers. What happens?"
+    options:
+      - id: a
+        text: "It starts and is killed"
+        explanation: "Killing is a limit effect."
+      - id: b
+        text: "It stays Pending"
+        explanation: "Correct: the scheduler cannot place it."
+      - id: c
+        text: "It runs with less memory"
+        explanation: "Requests are not reduced."
+      - id: d
+        text: "The workflow is rejected by the API server"
+        explanation: "The schema is valid."
+    correct_option: b
+    explanation: "Correct: the scheduler cannot place it."
+
+  - id: ats060-040-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Volumes"
+    source_readings:
+      - sections/section-040/module-02/course-01-resources-identity-placement-and-volumes.md
+    prompt: "What is the life of an emptyDir volume?"
+    options:
+      - id: a
+        text: "It lives as long as the pod"
+        explanation: "Correct."
+      - id: b
+        text: "It lives as long as the workflow"
+        explanation: "Pods are separate from the workflow life."
+      - id: c
+        text: "It is permanent"
+        explanation: "It is not persistent."
+      - id: d
+        text: "It lives until the node restarts"
+        explanation: "It ends with the pod."
+    correct_option: a
+    explanation: "Correct."
+
+  - id: ats060-040-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Phases"
+    source_readings:
+      - sections/section-040/module-02/course-02-reading-status-and-failure-evidence.md
+    prompt: "What does the workflow phase Error indicate compared with Failed?"
+    options:
+      - id: a
+        text: "A container exited with code 1"
+        explanation: "That is Failed."
+      - id: b
+        text: "The controller or executor could not do its own work"
+        explanation: "Correct."
+      - id: c
+        text: "A deadline ended the run"
+        explanation: "That appears as Failed."
+      - id: d
+        text: "A retry succeeded"
+        explanation: "That is Succeeded."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-040-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "First failure"
+    source_readings:
+      - sections/section-040/module-02/course-02-reading-status-and-failure-evidence.md
+    prompt: "A large workflow fails. Where do you start looking?"
+    options:
+      - id: a
+        text: "At the last failed node"
+        explanation: "It is often only a consequence."
+      - id: b
+        text: "At the earliest Pod node that is not Succeeded"
+        explanation: "Correct."
+      - id: c
+        text: "At the controller logs only"
+        explanation: "Node evidence comes first."
+      - id: d
+        text: "At the artifact repository"
+        explanation: "Not the first place."
+    correct_option: b
+    explanation: "Correct."
+

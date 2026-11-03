@@ -3,41 +3,104 @@ draft: true
 exam_objectives:
 - Generating and Consuming Artifacts
 ---
-# Generating, Storing And Consuming Workflow Artifacts
+# Artifacts Compared With Parameters
 
-Workflow artifacts represent data produced or consumed by tasks. They can include files, directories, models or datasets, with a storage arrangement that makes them available beyond one container's local lifetime. Parameters are better suited to scalar values such as a dataset identifier or processing mode. Confusing the two leads to unclear transfer and retention behavior.
+A task often produces a file: a report, an image, a dataset. A parameter cannot carry that file, because a parameter is a short string stored inside the `Workflow` object. Argo Workflows solves this with artifacts. An artifact is a file or a directory that a task produces or consumes, and that Argo stores outside the pod in an artifact repository. This part explains what an artifact is, how it travels between tasks, and how it differs from a parameter.
 
-## Declare The Produced Data
+## Parameters and artifacts are different channels
 
-An output artifact identifies the path where the task produces data and the supported artifact handling information. The file must actually exist in the task environment at the relevant time. A successful process exit does not guarantee that it created the declared output or that the output contains valid data.
+A parameter is a string. The controller keeps it in `status.nodes[*].outputs.parameters`, so it lives in etcd with the rest of the object. It is right for a small value such as an identifier, a count or a file name. The Kubernetes API limits the size of an object, so a large parameter makes the workflow fail or slow the cluster down.
 
-The executor and configured repository handling move or preserve the data according to the supported artifact driver. A file written only inside a task's ephemeral root is not universally accessible to another Pod. The declaration, filesystem path and transfer stage must agree.
+An artifact is a file. Its data never enters the `Workflow` object. The object stores only a reference to it: the repository type, the bucket and the key. The data itself lives in the repository, for example an S3-compatible object store such as MinIO.
 
-## Connect Consumers Explicitly
+Use a parameter to steer a decision, such as which branch to run. Use an artifact to move data, such as a prepared dataset.
 
-A later task can reference a previous task's output under the workflow's supported expression and dependency model. The reference identifies which output is intended, while the input artifact's path determines where the consumer receives it. A name typo or dependency that runs before the output exists can break the contract even when both task images work individually.
+## Declare an output artifact
 
-A shared volume is another possible data path, but has different topology, access and lifecycle properties. Do not assume artifact repository transfer and shared filesystem access are interchangeable. The chosen model should fit the data size, concurrency and execution placement requirements.
+A template declares the files it produces under `outputs.artifacts`. Each entry needs a `name` and a `path`, which is the location inside the container:
 
-## Storage Has Its Own Authority
+```yaml
+templates:
+- name: produce
+  container:
+    image: docker.io/library/python:3.13-alpine
+    command: [python, -c]
+    args: ["open('/tmp/payload','w').write('roster')"]
+  outputs:
+    artifacts:
+    - name: payload
+      path: /tmp/payload
+```
 
-Artifact repositories can use object storage or other supported destinations. Credentials need the narrow operations required for producing and consuming the intended data. Read access to another tenant's artifact prefix can expose confidential results, while broad write access can permit replacement or deletion.
+When the `main` container ends, the `wait` container of the pod reads `/tmp/payload`, packs it, and uploads it to the repository. The upload happens in the executor, not in your code. Your container only writes a file.
 
-Repository configuration and credential availability must reach the responsible execution component. A task can finish computation while upload fails because storage authentication or network access is wrong. Distinguish transformation success from artifact persistence success, and protect credentials from parameters, logs and resource views.
+If the file is missing, the executor cannot upload it and the node fails with an error that names the path. The `optional: true` field on the output tells the executor to accept a missing file and continue.
 
-## Archive And Retention Affect Consumption
+## Declare an input artifact
 
-Artifact handling can archive data according to the configured behavior. A directory packed for storage is not necessarily exposed to a consumer as unrelated individual objects. Understand the selected archive settings and supported driver rather than guess from a filename suffix.
+A template that needs a file declares it under `inputs.artifacts`, again with a `name` and a `path`. The path is where the file will appear in the container:
 
-Workflow Pod cleanup, workflow metadata retention and artifact garbage collection have separate lifecycles. Deleting a completed Pod does not inherently remove every repository object. Conversely, removing an artifact too early can make a later retry or investigation impossible. Define the owner and expected lifetime of retained data.
+```yaml
+- name: consume
+  inputs:
+    artifacts:
+    - name: payload
+      path: /tmp/input
+  container:
+    image: docker.io/library/python:3.13-alpine
+    command: [python, -c]
+    args: ["print(open('/tmp/input').read())"]
+```
 
-## Use Stable And Collision-Safe Locations
+Before `main` starts, the `init` container downloads the artifact from the repository and unpacks it to `/tmp/input`. This is a copy, so changes made by `consume` do not change the stored artifact.
 
-Concurrent runs should not accidentally write different outputs to one uncontrolled location. Include suitable run identity or an intentional versioning model in storage paths. Retries can also repeat uploads or side effects, so the task and repository strategy should specify whether replacement is safe.
+## Connect an output to an input
 
-For a missing artifact, follow production, declared path, upload, stored identity, permission and consumer reference in order. Validate the content when the business requirement needs it. A completed phase is useful execution evidence, but the data contract must establish that the intended consumer obtained the right output.
+The caller of the template binds the input to a source with `arguments.artifacts`. When the source is the output of an earlier step, the field is `from`:
+
+```yaml
+steps:
+- - name: produce
+    template: produce
+- - name: consume
+    template: consume
+    arguments:
+      artifacts:
+      - name: payload
+        from: '{{steps.produce.outputs.artifacts.payload}}'
+```
+
+The tag `{{steps.produce.outputs.artifacts.payload}}` points to the reference that the controller recorded for the output of the `produce` step. In a DAG the tag is `{{tasks.<task>.outputs.artifacts.<name>}}`. The `from` field does not copy data. The controller passes the reference to the new pod, and the `init` container of that pod downloads the file.
+
+```mermaid
+flowchart TB
+  P["pod: produce"] -->|"wait uploads"| R["artifact repository"]
+  R -->|"init downloads"| C["pod: consume"]
+```
+
+The diagram shows that the two pods never talk to each other. All data goes through the repository.
+
+## Packing and the archive field
+
+By default Argo packs an output into a gzip-compressed tar file, and the key ends in `.tgz`. A consumer unpacks it again, so a single file arrives as a single file. You can change the packing with the `archive` field of the output:
+
+- `archive: {none: {}}` uploads the file as it is, without packing. This works for files, and for directories only when the key ends with `/`.
+- `archive: {tar: {compressionLevel: 0}}` keeps the tar format but turns off compression.
+
+Choose `none` when another system reads the object directly from the repository and must see the real file, not a `.tgz` file.
+
+## What can go wrong
+
+- The path in `outputs.artifacts` does not match the file the code writes. The node fails after `main` ends.
+- The repository is not configured or its credentials are wrong. The upload fails and the node fails, even if the container succeeded.
+- A step reads `from` an output of a step that has not run, or one that is skipped. The tag cannot be resolved, so the workflow stops with an error.
+- Two parallel steps write to the same repository key. The later upload replaces the earlier one. Keys that include `{{workflow.name}}` or the pod name avoid this.
+
+## What you now know
+
+An artifact is a file that moves through a repository, and a workflow stores only its reference. The `wait` container uploads outputs and the `init` container downloads inputs. The `from` field connects an output to an input, and `archive` controls the packing. The open question is where the repository is and how Argo gets its credentials. The next part answers it.
 
 ## Common pitfalls
 
 > [!WARNING]
-> Local file creation is not universal artifact transfer. Repository authority, archive settings, retention and consumer references are separate contracts, and process success does not guarantee valid persisted output.
+> Do not use parameters for files or large data. An artifact path must match the file the code writes, and an unpacked input is a copy of the stored file. A successful container does not prove that the upload worked.

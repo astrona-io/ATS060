@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: launch-crew
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: main
+  activeDeadlineSeconds: 180
+  arguments:
+    parameters:
+    - name: crew
+      value: orion
+  templates:
+  - name: main
+    steps:
+    - - name: call
+        templateRef:
+          name: crew-library
+          template: announce
+        arguments:
+          parameters:
+          - name: name
+            value: '{{workflow.parameters.crew}}'

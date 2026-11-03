@@ -3,22 +3,26 @@ draft: true
 exam_objectives:
 - Work with DAG (Directed-Acyclic Graphs)
 ---
-# DAG Dependencies, Conditional Tasks And Parallel Work
+# DAG Tasks, Dependencies And Data Flow
 
-This module develops dAG Dependencies, Conditional Tasks And Parallel Work. Use the explanations to connect intended behavior with responsible components and observable evidence.
+This module covers the DAG template: tasks, the two dependency fields, output references, fail-fast and parallelism.
 
 ## Learning Goals
 
-- Explain acyclic task dependencies and eligible parallelism.
-- Distinguish data references from explicit scheduling dependencies.
-- Interpret dependency results and fail-fast behavior.
-- Evaluate outputs, retries and concurrency limits.
+- Write a DAG with independent branches and a join.
+- Use depends expressions for results other than success.
+- Pass outputs between tasks with a matching dependency.
+- Explain fail-fast and parallelism limits.
 
 ## Before You Start
 
-Examples illustrate declared relationships and reasoning. No execution environment is required or claimed.
+You need basic `kubectl` skills and the idea of a Kubernetes pod. The module playground is a private kind cluster with Argo Workflows installed. The hands-on steps start the playground when you reach them.
 
 ## Reading Order
 
-1. DAG Dependencies, Conditional Tasks And Parallel Work
-2. Summary
+1. DAG Tasks, Dependencies And Depends Expressions
+2. Data Flow, Fail-Fast And Parallelism In DAGs
+3. Guided Practice: A Diamond DAG With Data Flow
+4. Summary
+
+<!-- astrona:playground -->

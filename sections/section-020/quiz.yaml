@@ -1,0 +1,243 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats060-020
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-020
+  title: "Generating and Consuming Artifacts"
+questions:
+  - id: ats060-020-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose between a parameter and an artifact"
+    source_readings:
+      - sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+    prompt: "A task produces a 200 MB dataset that the next task must read. Which channel fits?"
+    options:
+      - id: a
+        text: "An output parameter"
+        explanation: "A parameter is stored in the Workflow object and is meant for small strings."
+      - id: b
+        text: "An output artifact"
+        explanation: "Correct. An artifact stores the file in the repository and the object keeps only a reference."
+      - id: c
+        text: "A workflow-level parameter"
+        explanation: "Workflow parameters are stored in the spec and are also small values."
+      - id: d
+        text: "The workflow name"
+        explanation: "The name is metadata and carries no data."
+    correct_option: b
+    explanation: "Correct. An artifact stores the file in the repository and the object keeps only a reference."
+
+  - id: ats060-020-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Connect an output artifact to an input"
+    source_readings:
+      - sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+    prompt: "Which field of arguments.artifacts connects an input to an output of an earlier step?"
+    options:
+      - id: a
+        text: "raw"
+        explanation: "raw writes a string from the manifest."
+      - id: b
+        text: "from"
+        explanation: "Correct. from takes the reference to the output of an earlier step or task."
+      - id: c
+        text: "http"
+        explanation: "http downloads a file from an address."
+      - id: d
+        text: "path"
+        explanation: "path is the location inside the container, not the source."
+    correct_option: b
+    explanation: "Correct. from takes the reference to the output of an earlier step or task."
+
+  - id: ats060-020-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Name the component that uploads outputs"
+    source_readings:
+      - sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+    prompt: "Which container of a workflow pod uploads output artifacts to the repository?"
+    options:
+      - id: a
+        text: "init"
+        explanation: "The init container downloads inputs."
+      - id: b
+        text: "main"
+        explanation: "The main container runs your code and only writes files."
+      - id: c
+        text: "wait"
+        explanation: "Correct. The wait container runs the executor, which collects and uploads outputs."
+      - id: d
+        text: "the controller"
+        explanation: "The controller records references and does not move data."
+    correct_option: c
+    explanation: "Correct. The wait container runs the executor, which collects and uploads outputs."
+
+  - id: ats060-020-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Diagnose a failure after a successful container"
+    source_readings:
+      - sections/section-020/module-01/course-02-the-artifact-repository.md
+    prompt: "The main container exits with code 0, but the node fails after it ends. The wait log says the bucket does not exist. Which area holds the fault?"
+    options:
+      - id: a
+        text: "The template entrypoint"
+        explanation: "A bad entrypoint is rejected before any pod runs."
+      - id: b
+        text: "The artifact repository configuration"
+        explanation: "Correct. The bucket in the repository configuration is wrong or missing."
+      - id: c
+        text: "The parameter replacement"
+        explanation: "A replacement problem breaks the command before it runs."
+      - id: d
+        text: "The Workflow phase"
+        explanation: "The phase is the result, not the cause."
+    correct_option: b
+    explanation: "Correct. The bucket in the repository configuration is wrong or missing."
+
+  - id: ats060-020-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Locate the default repository setting"
+    source_readings:
+      - sections/section-020/module-01/course-02-the-artifact-repository.md
+    prompt: "Where is the default artifact repository for all workflows configured?"
+    options:
+      - id: a
+        text: "In each Workflow metadata"
+        explanation: "Workflow metadata holds names and labels, not the repository."
+      - id: b
+        text: "In the workflow-controller-configmap under artifactRepository"
+        explanation: "Correct. The administrator sets the default in the controller ConfigMap."
+      - id: c
+        text: "In the WorkflowTaskResult"
+        explanation: "A task result carries outputs of one task."
+      - id: d
+        text: "In the pod labels"
+        explanation: "Labels identify pods and do not configure storage."
+    correct_option: b
+    explanation: "Correct. The administrator sets the default in the controller ConfigMap."
+
+  - id: ats060-020-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose an input source for inline test data"
+    source_readings:
+      - sections/section-020/module-02/course-01-input-sources-and-archive-options.md
+    prompt: "You want a small fixed text file as an input without any external service. Which source fits?"
+    options:
+      - id: a
+        text: "git"
+        explanation: "git needs a reachable repository."
+      - id: b
+        text: "http"
+        explanation: "http needs a reachable server."
+      - id: c
+        text: "raw"
+        explanation: "Correct. raw.data puts a string from the manifest into the file."
+      - id: d
+        text: "s3"
+        explanation: "s3 needs a bucket and credentials."
+    correct_option: c
+    explanation: "Correct. raw.data puts a string from the manifest into the file."
+
+  - id: ats060-020-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Store a single file without packing"
+    source_readings:
+      - sections/section-020/module-02/course-01-input-sources-and-archive-options.md
+    prompt: "Which setting stores a single output file as it is, without a tar archive?"
+    options:
+      - id: a
+        text: "optional: true"
+        explanation: "optional only tolerates a missing file."
+      - id: b
+        text: "archive: {none: {}}"
+        explanation: "Correct. archive none uploads the file as it is."
+      - id: c
+        text: "mode: 0755"
+        explanation: "mode sets permissions on an input."
+      - id: d
+        text: "from: steps"
+        explanation: "from is a source for an input."
+    correct_option: b
+    explanation: "Correct. archive none uploads the file as it is."
+
+  - id: ats060-020-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain reproducibility of git inputs"
+    source_readings:
+      - sections/section-020/module-02/course-01-input-sources-and-archive-options.md
+    prompt: "Two runs of the same manifest read different data from a git input that uses revision main. What is the best fix?"
+    options:
+      - id: a
+        text: "Add archive none"
+        explanation: "Packing does not change which commit is cloned."
+      - id: b
+        text: "Pin revision to a commit"
+        explanation: "Correct. A commit hash does not move."
+      - id: c
+        text: "Set optional true"
+        explanation: "optional only allows a missing file."
+      - id: d
+        text: "Use a raw input"
+        explanation: "raw would replace the source and not fix the cause."
+    correct_option: b
+    explanation: "Correct. A commit hash does not move."
+
+  - id: ats060-020-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain the finalizer of artifact garbage collection"
+    source_readings:
+      - sections/section-020/module-02/course-02-artifact-garbage-collection-and-log-archiving.md
+    prompt: "A Workflow with artifactGC stays in Terminating after kubectl delete. What most likely keeps it?"
+    options:
+      - id: a
+        text: "The ttlStrategy"
+        explanation: "ttlStrategy deletes the object after a time."
+      - id: b
+        text: "A finalizer waits for the artifact garbage collection pod"
+        explanation: "Correct. The finalizer workflows.argoproj.io/artifact-gc stays until the deletion pod finishes."
+      - id: c
+        text: "The activeDeadlineSeconds"
+        explanation: "activeDeadlineSeconds limits run time."
+      - id: d
+        text: "The archiveLogs setting"
+        explanation: "archiveLogs saves logs and adds no finalizer."
+    correct_option: b
+    explanation: "Correct. The finalizer workflows.argoproj.io/artifact-gc stays until the deletion pod finishes."
+
+  - id: ats060-020-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Keep logs after pods are removed"
+    source_readings:
+      - sections/section-020/module-02/course-02-artifact-garbage-collection-and-log-archiving.md
+    prompt: "Pods are deleted at the end of a run, but failure logs must remain available. Which setting saves them?"
+    options:
+      - id: a
+        text: "archiveLogs: true"
+        explanation: "Correct. archiveLogs saves container logs as artifacts in the repository."
+      - id: b
+        text: "artifactGC.strategy: Never"
+        explanation: "Never keeps artifacts and does not create log artifacts."
+      - id: c
+        text: "ttlStrategy.secondsAfterSuccess"
+        explanation: "ttlStrategy deletes the Workflow object."
+      - id: d
+        text: "mode: 0755"
+        explanation: "mode sets file permissions."
+    correct_option: a
+    explanation: "Correct. archiveLogs saves container logs as artifacts in the repository."
+

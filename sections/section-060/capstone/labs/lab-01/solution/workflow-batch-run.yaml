@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: batch-run
+  namespace: starfleet
+  labels:
+    dataset: survey-2026-01
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: main
+  activeDeadlineSeconds: 300
+  parallelism: 2
+  synchronization:
+    mutexes:
+    - name: batch-lock
+  templates:
+  - name: main
+    steps:
+    - - name: list
+        template: list-parts
+    - - name: process
+        template: produce
+        withParam: '{{steps.list.outputs.result}}'
+        arguments:
+          parameters:
+          - name: item
+            value: '{{item}}'
+    - - name: combine
+        template: combine
+        arguments:
+          parameters:
+          - name: parts
+            value: '{{steps.process.outputs.result}}'
+  - name: list-parts
+    script:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      source: |
+        print('["alpha","beta","gamma"]')
+  - name: produce
+    retryStrategy:
+      limit: "1"
+      retryPolicy: OnFailure
+    inputs:
+      parameters:
+      - name: item
+    script:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      source: |
+        import json
+        print(json.dumps({"part": "{{inputs.parameters.item}}".upper()}))
+  - name: combine
+    inputs:
+      parameters:
+      - name: parts
+    script:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      source: |
+        import json
+        parts = json.loads('''{{inputs.parameters.parts}}''')
+        print("parts:", len(parts))

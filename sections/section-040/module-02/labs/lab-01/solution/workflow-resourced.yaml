@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: resourced
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: write
+  activeDeadlineSeconds: 180
+  volumes:
+  - name: scratch
+    emptyDir: {}
+  templates:
+  - name: write
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - "open('/work/note','w').write('logged'); open('/tmp/result','w').write(open('/work/note').read())"
+      resources:
+        requests:
+          cpu: 50m
+          memory: 32Mi
+        limits:
+          cpu: 200m
+          memory: 64Mi
+      volumeMounts:
+      - name: scratch
+        mountPath: /work
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

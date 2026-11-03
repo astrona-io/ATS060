@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: crew-library
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  activeDeadlineSeconds: 180
+  arguments:
+    parameters:
+    - name: crew
+      value: apollo
+  templates:
+  - name: announce
+    inputs:
+      parameters:
+      - name: name
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - 'open("/tmp/result","w").write("{{inputs.parameters.name}}")'
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

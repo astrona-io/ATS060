@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: compose
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 180
+  templates:
+  - name: pipeline
+    steps:
+    - - name: shout
+        template: shout
+    - - name: record
+        template: record
+        arguments:
+          parameters:
+          - name: value
+            value: '{{steps.shout.outputs.result}}'
+  - name: shout
+    script:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      source: |
+        print("bridge".upper())
+  - name: record
+    inputs:
+      parameters:
+      - name: value
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/result","w").write("{{inputs.parameters.value}}")
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

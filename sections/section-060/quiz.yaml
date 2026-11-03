@@ -1,0 +1,243 @@
+# Knowledge check for section 060. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats060-060
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-060
+  title: "Run Data Processing Jobs with Argo Workflows"
+questions:
+  - id: ats060-060-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Pipeline stages"
+    source_readings:
+      - sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
+    prompt: "Which order do the stages of a data pipeline follow?"
+    options:
+      - id: a
+        text: "Process, select, combine, partition"
+        explanation: "The input must be chosen first."
+      - id: b
+        text: "Select, partition, process, combine"
+        explanation: "Correct."
+      - id: c
+        text: "Combine, process, partition, select"
+        explanation: "The join comes last."
+      - id: d
+        text: "Partition, select, combine, process"
+        explanation: "Selection comes first."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Input identity"
+    source_readings:
+      - sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
+    prompt: "Why is an input named latest a risk for reproducibility?"
+    options:
+      - id: a
+        text: "It is too long"
+        explanation: "Length is unrelated."
+      - id: b
+        text: "It can refer to different data on different runs"
+        explanation: "Correct."
+      - id: c
+        text: "It cannot be a parameter"
+        explanation: "It can be a parameter."
+      - id: d
+        text: "It disables retries"
+        explanation: "Retries are separate."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Loop source"
+    source_readings:
+      - sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
+    prompt: "The list of parts is printed by an earlier step at run time. Which field reads it?"
+    options:
+      - id: a
+        text: "withItems"
+        explanation: "That takes a literal list."
+      - id: b
+        text: "withParam"
+        explanation: "Correct."
+      - id: c
+        text: "withSequence"
+        explanation: "That takes a count."
+      - id: d
+        text: "parallelism"
+        explanation: "That limits concurrency."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Output keys"
+    source_readings:
+      - sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
+    prompt: "Parallel parts write artifacts to the same key. What happens?"
+    options:
+      - id: a
+        text: "They are merged"
+        explanation: "Keys are not merged."
+      - id: b
+        text: "They overwrite each other"
+        explanation: "Correct."
+      - id: c
+        text: "The workflow is rejected"
+        explanation: "Nothing rejects it."
+      - id: d
+        text: "Each is stored twice"
+        explanation: "One key holds one object."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Parallelism scope"
+    source_readings:
+      - sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
+    prompt: "What does parallelism limit?"
+    options:
+      - id: a
+        text: "Calls to external services"
+        explanation: "It knows nothing of them."
+      - id: b
+        text: "Nodes of one workflow that run at the same time"
+        explanation: "Correct."
+      - id: c
+        text: "Pods in the cluster"
+        explanation: "It counts one workflow."
+      - id: d
+        text: "Retries"
+        explanation: "Retries are separate."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q06
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Retry safety"
+    source_readings:
+      - sections/section-060/module-01/course-02-aggregation-retries-and-reproducible-results.md
+    prompt: "A part writes a database row and then fails. What makes a retry safe?"
+    options:
+      - id: a
+        text: "A larger retry limit"
+        explanation: "It repeats more."
+      - id: b
+        text: "Idempotent writes such as a key with run and part names"
+        explanation: "Correct."
+      - id: c
+        text: "A shorter deadline"
+        explanation: "A deadline does not help."
+      - id: d
+        text: "Parallelism one"
+        explanation: "Ordering does not help."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Join check"
+    source_readings:
+      - sections/section-060/module-01/course-02-aggregation-retries-and-reproducible-results.md
+    prompt: "What should a join do when a part has no output?"
+    options:
+      - id: a
+        text: "Treat it as empty"
+        explanation: "That hides the loss."
+      - id: b
+        text: "Fail or report the missing part"
+        explanation: "Correct."
+      - id: c
+        text: "Ignore it"
+        explanation: "That hides the loss."
+      - id: d
+        text: "Retry forever"
+        explanation: "That is not a join rule."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Cron field"
+    source_readings:
+      - sections/section-060/module-02/course-01-scheduled-runs-with-cronworkflow.md
+    prompt: "Which field of a CronWorkflow in this course holds the cron expressions?"
+    options:
+      - id: a
+        text: "schedule"
+        explanation: "That is the older singular form."
+      - id: b
+        text: "schedules"
+        explanation: "Correct: a non-empty list."
+      - id: c
+        text: "cron"
+        explanation: "No such field."
+      - id: d
+        text: "times"
+        explanation: "No such field."
+    correct_option: b
+    explanation: "Correct: a non-empty list."
+
+  - id: ats060-060-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Concurrency policy"
+    source_readings:
+      - sections/section-060/module-02/course-01-scheduled-runs-with-cronworkflow.md
+    prompt: "A pipeline must never overlap with itself and a late run should be dropped. Which policy fits?"
+    options:
+      - id: a
+        text: "Allow"
+        explanation: "Allow starts another run."
+      - id: b
+        text: "Forbid"
+        explanation: "Correct."
+      - id: c
+        text: "Replace"
+        explanation: "Replace stops the old run."
+      - id: d
+        text: "Suspend"
+        explanation: "Suspend is a separate field."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-060-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Locks"
+    source_readings:
+      - sections/section-060/module-02/course-02-safe-repeated-runs-with-synchronization.md
+    prompt: "Which tool allows exactly two workflows to hold a lock at once?"
+    options:
+      - id: a
+        text: "A mutex"
+        explanation: "A mutex has one holder."
+      - id: b
+        text: "A semaphore with the value 2"
+        explanation: "Correct."
+      - id: c
+        text: "parallelism 2"
+        explanation: "That is within one workflow."
+      - id: d
+        text: "concurrencyPolicy Forbid"
+        explanation: "That limits one schedule."
+    correct_option: b
+    explanation: "Correct."
+

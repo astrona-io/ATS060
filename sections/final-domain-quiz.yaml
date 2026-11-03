@@ -1,0 +1,358 @@
+# Final domain quiz across all six sections. Listed last in astrona.yaml.
+schema_version: 1
+kind: question_bank
+id: ats060-final
+course_id: ATS060
+exam_code: CAPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: domain
+  id: argo-workflows
+  title: "Argo Workflows"
+questions:
+  - id: ats060-final-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Execution ownership"
+    source_readings:
+      - sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+    prompt: "Which component watches Workflow objects and creates pods for them?"
+    options:
+      - id: a
+        text: "The Kubernetes scheduler"
+        explanation: "The scheduler places pods only."
+      - id: b
+        text: "The Argo workflow controller"
+        explanation: "Correct."
+      - id: c
+        text: "The kubelet"
+        explanation: "The kubelet runs pods."
+      - id: d
+        text: "The artifact repository"
+        explanation: "The repository stores files."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Submitting with parameters"
+    source_readings:
+      - sections/section-010/module-02/course-01-submitting-workflows-and-parameters.md
+    prompt: "A Workflow declares a parameter with no value. What must a submission do?"
+    options:
+      - id: a
+        text: "Nothing, it defaults to empty"
+        explanation: "A parameter without a value is required."
+      - id: b
+        text: "Supply a value for it"
+        explanation: "Correct."
+      - id: c
+        text: "Delete the parameter"
+        explanation: "That changes the spec."
+      - id: d
+        text: "Add a retry strategy"
+        explanation: "Retries are unrelated."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Artifacts and parameters"
+    source_readings:
+      - sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+    prompt: "Which output type fits a whole file or directory rather than a short value?"
+    options:
+      - id: a
+        text: "Parameter"
+        explanation: "Parameters are short text."
+      - id: b
+        text: "Artifact"
+        explanation: "Correct."
+      - id: c
+        text: "Label"
+        explanation: "Labels hold metadata."
+      - id: d
+        text: "Annotation"
+        explanation: "Annotations hold metadata."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q04
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Artifact keys"
+    source_readings:
+      - sections/section-020/module-02/course-01-input-sources-and-archive-options.md
+    prompt: "Why should an artifact key contain the workflow name?"
+    options:
+      - id: a
+        text: "It is required by the schema"
+        explanation: "It is not required."
+      - id: b
+        text: "Two runs then never write the same key"
+        explanation: "Correct."
+      - id: c
+        text: "It enables compression"
+        explanation: "Packing sets that."
+      - id: d
+        text: "It sets the retention"
+        explanation: "Retention is separate."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Template reference"
+    source_readings:
+      - sections/section-030/module-01/course-01-workflowtemplate-definitions-and-references.md
+    prompt: "Which field reuses the whole definition of a stored WorkflowTemplate in a Workflow?"
+    options:
+      - id: a
+        text: "templateRef"
+        explanation: "That reuses one template."
+      - id: b
+        text: "workflowTemplateRef"
+        explanation: "Correct."
+      - id: c
+        text: "clusterScope"
+        explanation: "That marks a cluster-scoped reference."
+      - id: d
+        text: "onExit"
+        explanation: "That names an exit handler."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Cluster scope"
+    source_readings:
+      - sections/section-030/module-01/course-02-clusterworkflowtemplate-scope-and-access.md
+    prompt: "What must a reference to a ClusterWorkflowTemplate set?"
+    options:
+      - id: a
+        text: "clusterScope: true"
+        explanation: "Correct."
+      - id: b
+        text: "namespace: argo"
+        explanation: "The namespace is not the switch."
+      - id: c
+        text: "suspend: true"
+        explanation: "Suspend pauses a workflow."
+      - id: d
+        text: "parallelism: 1"
+        explanation: "Parallelism limits nodes."
+    correct_option: a
+    explanation: "Correct."
+
+  - id: ats060-final-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Template types"
+    source_readings:
+      - sections/section-030/module-02/course-01-template-types.md
+    prompt: "Which template type pauses a workflow without a pod?"
+    options:
+      - id: a
+        text: "container"
+        explanation: "It uses a pod."
+      - id: b
+        text: "script"
+        explanation: "It uses a pod."
+      - id: c
+        text: "suspend"
+        explanation: "Correct."
+      - id: d
+        text: "resource"
+        explanation: "It acts on an object."
+    correct_option: c
+    explanation: "Correct."
+
+  - id: ats060-final-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Retry semantics"
+    source_readings:
+      - sections/section-040/module-01/course-02-lifecycle-controls-retry-deadline-parallelism-and-cleanup.md
+    prompt: "With retryStrategy limit \"2\", how many times can a node run at most?"
+    options:
+      - id: a
+        text: "2"
+        explanation: "That omits the first attempt."
+      - id: b
+        text: "3"
+        explanation: "Correct: one attempt and two retries."
+      - id: c
+        text: "4"
+        explanation: "Too many."
+      - id: d
+        text: "1"
+        explanation: "Too few."
+    correct_option: b
+    explanation: "Correct: one attempt and two retries."
+
+  - id: ats060-final-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Pending pods"
+    source_readings:
+      - sections/section-040/module-02/course-01-resources-identity-placement-and-volumes.md
+    prompt: "A pod requests more memory than any node has. What is its state?"
+    options:
+      - id: a
+        text: "Running"
+        explanation: "It never starts."
+      - id: b
+        text: "Pending"
+        explanation: "Correct."
+      - id: c
+        text: "Succeeded"
+        explanation: "It never ran."
+      - id: d
+        text: "OOMKilled"
+        explanation: "That needs a started container."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Depends"
+    source_readings:
+      - sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
+    prompt: "Which expression runs a task only after build failed?"
+    options:
+      - id: a
+        text: "build.Succeeded"
+        explanation: "That is success."
+      - id: b
+        text: "build.Failed"
+        explanation: "Correct."
+      - id: c
+        text: "build"
+        explanation: "The shortcut accepts success."
+      - id: d
+        text: "!build"
+        explanation: "Not what the shortcut means."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Skipped versus omitted"
+    source_readings:
+      - sections/section-050/module-02/course-01-conditional-tasks-with-when-and-depends.md
+    prompt: "A task has a false when condition. Which phase does it get?"
+    options:
+      - id: a
+        text: "Skipped"
+        explanation: "Correct."
+      - id: b
+        text: "Omitted"
+        explanation: "That is for depends."
+      - id: c
+        text: "Failed"
+        explanation: "Nothing failed."
+      - id: d
+        text: "Pending"
+        explanation: "It never waits."
+    correct_option: a
+    explanation: "Correct."
+
+  - id: ats060-final-q12
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Fan-out"
+    source_readings:
+      - sections/section-050/module-02/course-02-fan-out-with-loops-and-aggregation.md
+    prompt: "Which field reads a JSON array printed by an earlier task to create a loop?"
+    options:
+      - id: a
+        text: "withItems"
+        explanation: "It takes a literal list."
+      - id: b
+        text: "withParam"
+        explanation: "Correct."
+      - id: c
+        text: "withSequence"
+        explanation: "It takes a count."
+      - id: d
+        text: "failFast"
+        explanation: "It sets failure behavior."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q13
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Safe retries"
+    source_readings:
+      - sections/section-060/module-01/course-02-aggregation-retries-and-reproducible-results.md
+    prompt: "What makes a retried data part safe to repeat?"
+    options:
+      - id: a
+        text: "A longer deadline"
+        explanation: "It does not change effects."
+      - id: b
+        text: "Idempotent writes"
+        explanation: "Correct."
+      - id: c
+        text: "A higher parallelism"
+        explanation: "It does not change effects."
+      - id: d
+        text: "A cron schedule"
+        explanation: "It does not change effects."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Schedules"
+    source_readings:
+      - sections/section-060/module-02/course-01-scheduled-runs-with-cronworkflow.md
+    prompt: "Which concurrencyPolicy skips a new run while the previous one is still active?"
+    options:
+      - id: a
+        text: "Allow"
+        explanation: "It starts another."
+      - id: b
+        text: "Forbid"
+        explanation: "Correct."
+      - id: c
+        text: "Replace"
+        explanation: "It stops the old run."
+      - id: d
+        text: "Suspend"
+        explanation: "Not a policy value."
+    correct_option: b
+    explanation: "Correct."
+
+  - id: ats060-final-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Locks"
+    source_readings:
+      - sections/section-060/module-02/course-02-safe-repeated-runs-with-synchronization.md
+    prompt: "Which tool limits overlap across different workflows?"
+    options:
+      - id: a
+        text: "parallelism"
+        explanation: "It counts one workflow."
+      - id: b
+        text: "A mutex or semaphore"
+        explanation: "Correct."
+      - id: c
+        text: "activeDeadlineSeconds"
+        explanation: "It bounds time."
+      - id: d
+        text: "ttlStrategy"
+        explanation: "It cleans objects."
+    correct_option: b
+    explanation: "Correct."
+

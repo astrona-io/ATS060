@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: gate
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 240
+  templates:
+  - name: pipeline
+    dag:
+      tasks:
+      - name: check
+        template: decide
+      - name: launch
+        template: act
+        dependencies:
+        - check
+        when: '{{tasks.check.outputs.result}} == green'
+      - name: abort
+        template: act
+        dependencies:
+        - check
+        when: '{{tasks.check.outputs.result}} != green'
+      - name: report
+        template: act
+        depends: launch || abort
+  - name: decide
+    script:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      source: |
+        print("green")
+  - name: act
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - print('acting')

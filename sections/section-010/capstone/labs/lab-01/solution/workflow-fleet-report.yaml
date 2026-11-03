@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: fleet-report
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 240
+  arguments:
+    parameters:
+    - name: crew
+      value: bridge
+  ttlStrategy:
+    secondsAfterSuccess: 3600
+    secondsAfterFailure: 86400
+  podGC:
+    strategy: OnPodSuccess
+  templates:
+  - name: pipeline
+    steps:
+    - - name: prepare
+        template: prepare
+        arguments:
+          parameters:
+          - name: crew
+            value: '{{workflow.parameters.crew}}'
+    - - name: publish
+        template: publish
+        arguments:
+          parameters:
+          - name: value
+            value: '{{steps.prepare.outputs.parameters.value}}'
+  - name: prepare
+    inputs:
+      parameters:
+      - name: crew
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/value","w").write("{{inputs.parameters.crew}}".upper())
+    outputs:
+      parameters:
+      - name: value
+        valueFrom:
+          path: /tmp/value
+  - name: publish
+    inputs:
+      parameters:
+      - name: value
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/result","w").write("report:{{inputs.parameters.value}}")
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

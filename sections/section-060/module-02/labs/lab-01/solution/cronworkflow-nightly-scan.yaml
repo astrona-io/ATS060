@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: nightly-scan
+  namespace: starfleet
+spec:
+  schedules:
+  - 0 3 * * *
+  timezone: UTC
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  workflowSpec:
+    serviceAccountName: workflow-runner
+    entrypoint: main
+    activeDeadlineSeconds: 180
+    templates:
+    - name: main
+      container:
+        image: docker.io/library/python:3.13-alpine
+        command:
+        - python
+        - -c
+        args:
+        - print('scan')

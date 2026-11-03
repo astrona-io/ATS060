@@ -5,13 +5,18 @@ exam_objectives:
 ---
 # Understand Argo Workflow Templates
 
-This section covers understand Argo Workflow Templates. It develops reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions through mechanisms, examples, prerequisites and failure reasoning.
+This section covers reusable workflow definitions and the template types that compose them.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains include an intermediate checkpoint before the final review.
+## Modules
+
+- Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions: stored definitions, references, scope and access.
+- Template Types And Composition: container, script, resource and suspend templates, steps and parameter passing.
+
+Each module has a landing page, deep-dive parts, a guided practice session in a private playground and a summary. Graded labs follow the part they practise. A capstone lab closes the section, and a knowledge check follows it.
 
 ## Learning Outcomes
 
-- Distinguish inline task templates from reusable resources.
-- Compare namespaced WorkflowTemplate with ClusterWorkflowTemplate.
-- Explain templateRef, workflowTemplateRef and supplied arguments.
-- Evaluate definition changes, permissions and reproducibility.
+- Separate a stored definition from its execution.
+- Choose workflowTemplateRef or templateRef.
+- Use cluster-scoped definitions with clusterScope.
+- Select and compose template types and pass values between steps.

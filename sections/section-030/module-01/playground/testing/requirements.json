@@ -1,0 +1,68 @@
+{
+  "context": "kind-astro-ats-060-playground-030-01",
+  "resources": [
+    {
+      "kind": "workflowtemplate",
+      "name": "mission-template",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "WorkflowTemplate",
+        "metadata": {
+          "name": "mission-template",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "produce",
+          "activeDeadlineSeconds": 180,
+          "templates": [
+            {
+              "name": "produce",
+              "container": {
+                "image": "docker.io/library/python:3.13-alpine",
+                "command": [
+                  "python",
+                  "-c"
+                ],
+                "args": [
+                  "open(\"/tmp/result\",\"w\").write(\"mission-complete\")"
+                ]
+              },
+              "outputs": {
+                "parameters": [
+                  {
+                    "name": "result",
+                    "valueFrom": {
+                      "path": "/tmp/result"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "workflow",
+      "name": "mission",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "mission",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "workflowTemplateRef": {
+            "name": "mission-template"
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

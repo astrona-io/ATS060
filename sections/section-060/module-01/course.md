@@ -3,22 +3,26 @@ draft: true
 exam_objectives:
 - Run Data Processing Jobs with Argo Workflows
 ---
-# Data Processing, Fan-Out And Reproducible Results
+# Data Processing Pipelines
 
-This module develops data Processing, Fan-Out And Reproducible Results. Use the explanations to connect intended behavior with responsible components and observable evidence.
+This module covers the shape of a data processing job in Argo Workflows: input identity, partitioning, parallel processing, joining and safe repetition.
 
 ## Learning Goals
 
-- Design partition, processing and aggregation stages.
-- Explain parameterized fan-out and bounded parallelism.
-- Preserve artifact identity, validation and reproducibility.
-- Evaluate retries, partial results and external writes.
+- Describe the stages of a pipeline and the data contract between them.
+- Create parts with withItems and withParam.
+- Join part results and detect a missing part.
+- Explain why retries need idempotent work.
 
 ## Before You Start
 
-Examples illustrate declared relationships and reasoning. No execution environment is required or claimed.
+You need basic `kubectl` skills and the idea of a Kubernetes pod. The module playground is a private kind cluster with Argo Workflows installed. The hands-on steps start the playground when you reach them.
 
 ## Reading Order
 
-1. Data Processing, Fan-Out And Reproducible Results
-2. Summary
+1. Pipeline Shape: Input Identity, Partitioning And Fan-Out
+2. Aggregation, Retries And Reproducible Results
+3. Guided Practice: Partition, Process And Join
+4. Summary
+
+<!-- astrona:playground -->

@@ -1,0 +1,25 @@
+{
+  "context": "kind-astro-ats-060-capstone-050-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "route-plan",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "route-plan",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "pipeline",
+          "activeDeadlineSeconds": 300,
+          "parallelism": 2
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

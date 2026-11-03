@@ -5,13 +5,18 @@ exam_objectives:
 ---
 # Run Data Processing Jobs with Argo Workflows
 
-This section covers run Data Processing Jobs with Argo Workflows. It develops data Processing, Fan-Out And Reproducible Results through mechanisms, examples, prerequisites and failure reasoning.
+This section covers data processing jobs: pipeline shape, joins, retries, schedules and locks.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains include an intermediate checkpoint before the final review.
+## Modules
+
+- Data Processing Pipelines: input identity, partitioning, fan-out, joins and safe repetition.
+- Scheduled And Controlled Pipeline Runs: CronWorkflow, concurrency policy, mutexes and semaphores.
+
+Each module has a landing page, deep-dive parts, a guided practice session in a private playground and a summary. Graded labs follow the part they practise. A capstone lab closes the section, and a knowledge check follows it.
 
 ## Learning Outcomes
 
-- Design partition, processing and aggregation stages.
-- Explain parameterized fan-out and bounded parallelism.
-- Preserve artifact identity, validation and reproducibility.
-- Evaluate retries, partial results and external writes.
+- Build a partition-process-join pipeline.
+- Detect missing parts and avoid repeated external effects.
+- Schedule a pipeline without overlap.
+- Limit concurrent runs across workflows.

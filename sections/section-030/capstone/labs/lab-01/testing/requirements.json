@@ -1,0 +1,48 @@
+{
+  "context": "kind-astro-ats-060-capstone-030-01",
+  "resources": [
+    {
+      "kind": "workflowtemplate",
+      "name": "crew-library",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "WorkflowTemplate",
+        "metadata": {
+          "name": "crew-library",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "activeDeadlineSeconds": 180,
+          "arguments": {
+            "parameters": [
+              {
+                "name": "crew",
+                "value": "apollo"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "workflow",
+      "name": "launch-crew",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "launch-crew",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "main"
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

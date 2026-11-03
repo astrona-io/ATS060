@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: staging
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: pipeline
+  activeDeadlineSeconds: 180
+  templates:
+  - name: pipeline
+    steps:
+    - - name: stage
+        template: stage
+    - - name: read
+        template: read
+        arguments:
+          artifacts:
+          - name: staged
+            from: '{{steps.stage.outputs.artifacts.staged}}'
+  - name: stage
+    inputs:
+      artifacts:
+      - name: note
+        path: /tmp/note
+        raw:
+          data: crew-roster
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/staged","w").write(open("/tmp/note").read())
+    outputs:
+      artifacts:
+      - name: staged
+        path: /tmp/staged
+        archive:
+          none: {}
+        s3:
+          key: '{{workflow.name}}/staged.txt'
+  - name: read
+    inputs:
+      artifacts:
+      - name: staged
+        path: /tmp/input
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - open("/tmp/result","w").write(open("/tmp/input").read())
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

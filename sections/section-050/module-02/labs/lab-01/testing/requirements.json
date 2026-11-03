@@ -1,0 +1,24 @@
+{
+  "context": "kind-astro-ats-060-lab-050-02-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "gate",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "gate",
+          "namespace": "starfleet"
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "pipeline",
+          "activeDeadlineSeconds": 240
+        }
+      }
+    }
+  ],
+  "behavior": []
+}

@@ -5,13 +5,18 @@ exam_objectives:
 ---
 # Work with DAG (Directed-Acyclic Graphs)
 
-This section covers work with DAG (Directed-Acyclic Graphs). It develops dAG Dependencies, Conditional Tasks And Parallel Work through mechanisms, examples, prerequisites and failure reasoning.
+This section covers directed acyclic graphs: dependencies, data flow, conditions and loops.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains include an intermediate checkpoint before the final review.
+## Modules
+
+- DAG Tasks, Dependencies And Data Flow: dependencies, depends expressions, output references, fail-fast and parallelism.
+- Conditional Tasks And Fan-Out: when, depends results, Skipped and Omitted, loops and aggregation.
+
+Each module has a landing page, deep-dive parts, a guided practice session in a private playground and a summary. Graded labs follow the part they practise. A capstone lab closes the section, and a knowledge check follows it.
 
 ## Learning Outcomes
 
-- Explain acyclic task dependencies and eligible parallelism.
-- Distinguish data references from explicit scheduling dependencies.
-- Interpret dependency results and fail-fast behavior.
-- Evaluate outputs, retries and concurrency limits.
+- Write a DAG with branches and a join.
+- Use the right dependency field for a stated need.
+- Choose a branch from data and join the alternatives.
+- Fan out over a list and bound the concurrency.

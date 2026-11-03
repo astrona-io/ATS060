@@ -1,8 +1,10 @@
+---
 training:
   id: ATS060
   title: 'CAPA: Argo Workflows'
-  description: 'Detailed reading material and reusable YAML knowledge checks for CAPA:
-    Argo Workflows. Technical content remains draft. Private playgrounds and draft independent labs are included.'
+  description: 'Reading material, private playgrounds, graded draft labs and YAML
+    knowledge checks for CAPA: Argo Workflows. Technical content remains draft and
+    the labs are untested.'
   certification:
     name: Certified Argo Project Associate
     code: CAPA
@@ -35,8 +37,9 @@ modules:
     path: sections/intro/course-03-how-this-course-is-made.md
 - id: module-010
   title: Understand Argo Workflow Fundamentals
-  description: Developed reading and reasoning for Understand Argo Workflow Fundamentals.
-  maturity: alpha
+  description: Workflow resources, templates and execution ownership, then running
+    and inspecting workflows, with a capstone and knowledge check.
+  status: alpha
   content:
   - type: reading
     title: Understand Argo Workflow Fundamentals
@@ -45,8 +48,11 @@ modules:
     title: Workflow Resources, Templates And Execution Ownership
     path: sections/section-010/module-01/course.md
   - type: reading
-    title: Workflow Resources, Templates And Execution Ownership
+    title: Workflow Resources And Templates
     path: sections/section-010/module-01/course-01-workflow-resources-templates-and-execution-ownership.md
+  - type: reading
+    title: Controller, Pods And Executor
+    path: sections/section-010/module-01/course-02-controller-pods-and-executor.md
   - type: reading
     title: Run A Workflow Through The Executor — Task
     path: sections/section-010/module-01/labs/lab-01/question.md
@@ -67,14 +73,72 @@ modules:
     path: sections/section-010/module-01/labs/lab-01/solution.md
   - type: reading
     title: 'Guided Practice: Run A Workflow Through The Executor'
-    path: sections/section-010/module-01/course-02-guided-practice.md
+    path: sections/section-010/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-010/module-01/course-03-summary.md
+    path: sections/section-010/module-01/course-04-summary.md
+  - type: reading
+    title: Running And Inspecting Workflows
+    path: sections/section-010/module-02/course.md
+  - type: reading
+    title: Submitting Workflows And Setting Parameters
+    path: sections/section-010/module-02/course-01-submitting-workflows-and-parameters.md
+  - type: reading
+    title: Observing Results And Cleaning Up
+    path: sections/section-010/module-02/course-02-observing-results-and-cleanup.md
+  - type: reading
+    title: Report An Overridden Argument With Cleanup — Task
+    path: sections/section-010/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Report An Overridden Argument With Cleanup
+    path: sections/section-010/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Run a Workflow whose argument is set to a chosen value and which cleans up after
+      itself.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Report An Overridden Argument With Cleanup — Solution
+    path: sections/section-010/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Parameters, Results And Retention'
+    path: sections/section-010/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-02/course-04-summary.md
+  - type: reading
+    title: Build A Two-Step Report With Retention — Task
+    path: sections/section-010/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Build A Two-Step Report With Retention
+    path: sections/section-010/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Build a two-step workflow that passes a value between templates and sets retention
+      fields.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Build A Two-Step Report With Retention — Solution
+    path: sections/section-010/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Understand Argo Workflow Fundamentals'
+    path: sections/section-010/quiz.yaml
+    pass_score: 70
 - id: module-020
   title: Generating and Consuming Artifacts
-  description: Developed reading and reasoning for Generating and Consuming Artifacts.
-  maturity: alpha
+  description: Artifacts as files that tasks produce and consume, the artifact repository,
+    input sources, packing and cleanup, with a capstone and knowledge check.
+  status: alpha
   content:
   - type: reading
     title: Generating and Consuming Artifacts
@@ -83,8 +147,11 @@ modules:
     title: Generating, Storing And Consuming Workflow Artifacts
     path: sections/section-020/module-01/course.md
   - type: reading
-    title: Generating, Storing And Consuming Workflow Artifacts
+    title: Artifacts Compared With Parameters
     path: sections/section-020/module-01/course-01-generating-storing-and-consuming-workflow-artifacts.md
+  - type: reading
+    title: The Artifact Repository
+    path: sections/section-020/module-01/course-02-the-artifact-repository.md
   - type: reading
     title: Produce Store And Consume An Artifact — Task
     path: sections/section-020/module-01/labs/lab-01/question.md
@@ -105,14 +172,71 @@ modules:
     path: sections/section-020/module-01/labs/lab-01/solution.md
   - type: reading
     title: 'Guided Practice: Produce Store And Consume An Artifact'
-    path: sections/section-020/module-01/course-02-guided-practice.md
+    path: sections/section-020/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-020/module-01/course-03-summary.md
+    path: sections/section-020/module-01/course-04-summary.md
+  - type: reading
+    title: Artifact Sources, Archive Options And Cleanup
+    path: sections/section-020/module-02/course.md
+  - type: reading
+    title: Input Sources And Archive Options
+    path: sections/section-020/module-02/course-01-input-sources-and-archive-options.md
+  - type: reading
+    title: Artifact Garbage Collection And Log Archiving
+    path: sections/section-020/module-02/course-02-artifact-garbage-collection-and-log-archiving.md
+  - type: reading
+    title: Stage A Raw Input Without Packing — Task
+    path: sections/section-020/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Stage A Raw Input Without Packing
+    path: sections/section-020/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Store a raw input as an unpacked artifact under a chosen key and pass it to
+      a second step.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Stage A Raw Input Without Packing — Solution
+    path: sections/section-020/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Raw Inputs, Archive Options And Passing Artifacts'
+    path: sections/section-020/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-02/course-04-summary.md
+  - type: reading
+    title: Build A Three-Step Artifact Pipeline With Cleanup Policy — Task
+    path: sections/section-020/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Build A Three-Step Artifact Pipeline With Cleanup Policy
+    path: sections/section-020/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Build a pipeline that generates, transforms and consumes artifacts with an explicit
+      key and a garbage collection policy.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Build A Three-Step Artifact Pipeline With Cleanup Policy — Solution
+    path: sections/section-020/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Generating and Consuming Artifacts'
+    path: sections/section-020/quiz.yaml
+    pass_score: 70
 - id: module-030
   title: Understand Argo Workflow Templates
-  description: Developed reading and reasoning for Understand Argo Workflow Templates.
-  maturity: alpha
+  description: Reusable definitions, template types and composition.
+  status: alpha
   content:
   - type: reading
     title: Understand Argo Workflow Templates
@@ -121,8 +245,8 @@ modules:
     title: Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
     path: sections/section-030/module-01/course.md
   - type: reading
-    title: Reusable WorkflowTemplate And ClusterWorkflowTemplate Definitions
-    path: sections/section-030/module-01/course-01-reusable-workflowtemplate-and-clusterworkflowtemplate-definitions.md
+    title: WorkflowTemplate Definitions And References
+    path: sections/section-030/module-01/course-01-workflowtemplate-definitions-and-references.md
   - type: reading
     title: Instantiate A Reusable WorkflowTemplate — Task
     path: sections/section-030/module-01/labs/lab-01/question.md
@@ -141,6 +265,9 @@ modules:
   - type: reading
     title: Instantiate A Reusable WorkflowTemplate — Solution
     path: sections/section-030/module-01/labs/lab-01/solution.md
+  - type: reading
+    title: ClusterWorkflowTemplate, Scope And Access
+    path: sections/section-030/module-01/course-02-clusterworkflowtemplate-scope-and-access.md
   - type: reading
     title: Instantiate A Cluster Scoped Template — Task
     path: sections/section-030/module-01/labs/lab-02/question.md
@@ -161,24 +288,84 @@ modules:
     path: sections/section-030/module-01/labs/lab-02/solution.md
   - type: reading
     title: 'Guided Practice: Instantiate A Reusable WorkflowTemplate'
-    path: sections/section-030/module-01/course-02-guided-practice.md
+    path: sections/section-030/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-030/module-01/course-03-summary.md
+    path: sections/section-030/module-01/course-04-summary.md
+  - type: reading
+    title: Template Types And Composition
+    path: sections/section-030/module-02/course.md
+  - type: reading
+    title: Template Types
+    path: sections/section-030/module-02/course-01-template-types.md
+  - type: reading
+    title: Composing Templates With Steps And Parameters
+    path: sections/section-030/module-02/course-02-composing-templates-with-steps-and-dag.md
+  - type: reading
+    title: Pass A Script Result Between Steps — Task
+    path: sections/section-030/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Pass A Script Result Between Steps
+    path: sections/section-030/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Compose a script template and a container template with a steps template and
+      pass the printed text between them.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Pass A Script Result Between Steps — Solution
+    path: sections/section-030/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Script Templates And Steps'
+    path: sections/section-030/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-02/course-04-summary.md
+  - type: reading
+    title: Compose A Workflow From A Reusable Template Library — Task
+    path: sections/section-030/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Compose A Workflow From A Reusable Template Library
+    path: sections/section-030/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Store a reusable template in a WorkflowTemplate and call it from a Workflow
+      with an overridden argument.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Compose A Workflow From A Reusable Template Library — Solution
+    path: sections/section-030/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Understand Argo Workflow Templates'
+    path: sections/section-030/quiz.yaml
+    pass_score: 70
 - id: module-040
   title: Understand the Argo Workflow Spec
-  description: Developed reading and reasoning for Understand the Argo Workflow Spec.
-  maturity: alpha
+  description: Workflow spec fields, lifecycle controls, resources and status.
+  status: alpha
   content:
   - type: reading
     title: Understand the Argo Workflow Spec
     path: sections/section-040/README.md
   - type: reading
-    title: Reading Workflow Spec Fields As Execution Decisions
+    title: Reading The Workflow Spec
     path: sections/section-040/module-01/course.md
   - type: reading
-    title: Reading Workflow Spec Fields As Execution Decisions
-    path: sections/section-040/module-01/course-01-reading-workflow-spec-fields-as-execution-decisions.md
+    title: 'Workflow Spec Structure: Entrypoint, Templates And Arguments'
+    path: sections/section-040/module-01/course-01-workflow-spec-structure-entrypoint-templates-and-arguments.md
+  - type: reading
+    title: 'Lifecycle Controls: Retry, Deadline, Parallelism And Cleanup'
+    path: sections/section-040/module-01/course-02-lifecycle-controls-retry-deadline-parallelism-and-cleanup.md
   - type: reading
     title: Recover A Workflow Step With A Bounded Retry — Task
     path: sections/section-040/module-01/labs/lab-01/question.md
@@ -198,26 +385,82 @@ modules:
     title: Recover A Workflow Step With A Bounded Retry — Solution
     path: sections/section-040/module-01/labs/lab-01/solution.md
   - type: reading
-    title: 'Guided Practice: Recover A Workflow Step With A Bounded Retry'
-    path: sections/section-040/module-01/course-02-guided-practice.md
+    title: 'Guided Practice: Arguments, Deadlines And Cleanup'
+    path: sections/section-040/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-040/module-01/course-03-summary.md
+    path: sections/section-040/module-01/course-04-summary.md
+  - type: reading
+    title: Resources, Identity, Placement And Status
+    path: sections/section-040/module-02/course.md
+  - type: reading
+    title: Resources, Identity, Placement And Volumes
+    path: sections/section-040/module-02/course-01-resources-identity-placement-and-volumes.md
+  - type: reading
+    title: Reading Status And Failure Evidence
+    path: sections/section-040/module-02/course-02-reading-status-and-failure-evidence.md
+  - type: reading
+    title: Run A Workflow With Resources And A Pod Volume — Task
+    path: sections/section-040/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Run A Workflow With Resources And A Pod Volume
+    path: sections/section-040/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Set resource requests and limits, mount an emptyDir volume and expose a value
+      read from it.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Run A Workflow With Resources And A Pod Volume — Solution
+    path: sections/section-040/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Resources, Volumes And Status Evidence'
+    path: sections/section-040/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-02/course-04-summary.md
+  - type: reading
+    title: Bound A Survey Run With Argument, Retry, Deadline And Cleanup — Task
+    path: sections/section-040/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Bound A Survey Run With Argument, Retry, Deadline And Cleanup
+    path: sections/section-040/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Combine an argument, a retry, two deadlines, a parallelism limit, a resource
+      request and a cleanup policy in one workflow.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Bound A Survey Run With Argument, Retry, Deadline And Cleanup — Solution
+    path: sections/section-040/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Understand the Argo Workflow Spec'
+    path: sections/section-040/quiz.yaml
+    pass_score: 70
 - id: module-050
   title: Work with DAG (Directed-Acyclic Graphs)
-  description: Developed reading and reasoning for Work with DAG (Directed-Acyclic
-    Graphs).
-  maturity: alpha
+  description: DAG dependencies, conditions and loops.
+  status: alpha
   content:
   - type: reading
     title: Work with DAG (Directed-Acyclic Graphs)
     path: sections/section-050/README.md
   - type: reading
-    title: DAG Dependencies, Conditional Tasks And Parallel Work
+    title: DAG Tasks, Dependencies And Data Flow
     path: sections/section-050/module-01/course.md
   - type: reading
-    title: DAG Dependencies, Conditional Tasks And Parallel Work
-    path: sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+    title: DAG Tasks, Dependencies And Depends Expressions
+    path: sections/section-050/module-01/course-01-dag-tasks-dependencies-and-depends-expressions.md
   - type: reading
     title: Execute A DAG Dependency — Task
     path: sections/section-050/module-01/labs/lab-01/question.md
@@ -237,26 +480,84 @@ modules:
     title: Execute A DAG Dependency — Solution
     path: sections/section-050/module-01/labs/lab-01/solution.md
   - type: reading
-    title: 'Guided Practice: Execute A DAG Dependency'
-    path: sections/section-050/module-01/course-02-guided-practice.md
+    title: Data Flow, Fail-Fast And Parallelism In DAGs
+    path: sections/section-050/module-01/course-02-data-flow-fail-fast-and-parallelism-in-dags.md
+  - type: reading
+    title: 'Guided Practice: A Diamond DAG With Data Flow'
+    path: sections/section-050/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-050/module-01/course-03-summary.md
+    path: sections/section-050/module-01/course-04-summary.md
+  - type: reading
+    title: Conditional Tasks And Fan-Out
+    path: sections/section-050/module-02/course.md
+  - type: reading
+    title: Conditional Tasks With When And Depends
+    path: sections/section-050/module-02/course-01-conditional-tasks-with-when-and-depends.md
+  - type: reading
+    title: Fan-Out With Loops And Aggregation
+    path: sections/section-050/module-02/course-02-fan-out-with-loops-and-aggregation.md
+  - type: reading
+    title: Choose A DAG Branch With A When Condition — Task
+    path: sections/section-050/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Choose A DAG Branch With A When Condition
+    path: sections/section-050/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Run one of two branches from a task output and join them with a depends expression.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Choose A DAG Branch With A When Condition — Solution
+    path: sections/section-050/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: Conditional Branches And A Fan-Out'
+    path: sections/section-050/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-050/module-02/course-04-summary.md
+  - type: reading
+    title: Build A Branching DAG With A Fan-Out And A Join — Task
+    path: sections/section-050/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Build A Branching DAG With A Fan-Out And A Join
+    path: sections/section-050/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Combine a when branch, a withItems fan-out, a depends join and a parallelism
+      limit in one DAG.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Build A Branching DAG With A Fan-Out And A Join — Solution
+    path: sections/section-050/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Work with DAG (Directed-Acyclic Graphs)'
+    path: sections/section-050/quiz.yaml
+    pass_score: 70
 - id: module-060
   title: Run Data Processing Jobs with Argo Workflows
-  description: Developed reading and reasoning for Run Data Processing Jobs with Argo
-    Workflows.
-  maturity: alpha
+  description: Data processing pipelines, schedules and synchronization.
+  status: alpha
   content:
   - type: reading
     title: Run Data Processing Jobs with Argo Workflows
     path: sections/section-060/README.md
   - type: reading
-    title: Data Processing, Fan-Out And Reproducible Results
+    title: Data Processing Pipelines
     path: sections/section-060/module-01/course.md
   - type: reading
-    title: Data Processing, Fan-Out And Reproducible Results
-    path: sections/section-060/module-01/course-01-data-processing-fan-out-and-reproducible-results.md
+    title: 'Pipeline Shape: Input Identity, Partitioning And Fan-Out'
+    path: sections/section-060/module-01/course-01-pipeline-shape-input-identity-and-fan-out.md
   - type: reading
     title: Fan Out A Bounded Processing Job — Task
     path: sections/section-060/module-01/labs/lab-01/question.md
@@ -276,8 +577,71 @@ modules:
     title: Fan Out A Bounded Processing Job — Solution
     path: sections/section-060/module-01/labs/lab-01/solution.md
   - type: reading
-    title: 'Guided Practice: Fan Out A Bounded Processing Job'
-    path: sections/section-060/module-01/course-02-guided-practice.md
+    title: Aggregation, Retries And Reproducible Results
+    path: sections/section-060/module-01/course-02-aggregation-retries-and-reproducible-results.md
+  - type: reading
+    title: 'Guided Practice: Partition, Process And Join'
+    path: sections/section-060/module-01/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-060/module-01/course-03-summary.md
+    path: sections/section-060/module-01/course-04-summary.md
+  - type: reading
+    title: Scheduled And Controlled Pipeline Runs
+    path: sections/section-060/module-02/course.md
+  - type: reading
+    title: Scheduled Runs With CronWorkflow
+    path: sections/section-060/module-02/course-01-scheduled-runs-with-cronworkflow.md
+  - type: reading
+    title: Safe Repeated Runs With Synchronization
+    path: sections/section-060/module-02/course-02-safe-repeated-runs-with-synchronization.md
+  - type: reading
+    title: Schedule A Nightly Scan Without Overlap — Task
+    path: sections/section-060/module-02/labs/lab-01/question.md
+  - type: lab
+    title: Schedule A Nightly Scan Without Overlap
+    path: sections/section-060/module-02/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Create a CronWorkflow with a time zone, a concurrency policy and history limits.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Schedule A Nightly Scan Without Overlap — Solution
+    path: sections/section-060/module-02/labs/lab-01/solution.md
+  - type: reading
+    title: 'Guided Practice: A Schedule And A Mutex'
+    path: sections/section-060/module-02/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-060/module-02/course-04-summary.md
+  - type: reading
+    title: Run A Locked Partition-Process-Join Pipeline — Task
+    path: sections/section-060/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Run A Locked Partition-Process-Join Pipeline
+    path: sections/section-060/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 45m
+    topic: argo-workflow
+    task_kind: build
+    learning_goals:
+    - Build a pipeline that lists parts at run time, processes them in parallel under
+      a mutex and joins the results.
+    tags:
+    - capa
+    - argo-workflow
+  - type: reading
+    title: Run A Locked Partition-Process-Join Pipeline — Solution
+    path: sections/section-060/capstone/labs/lab-01/solution.md
+  - type: quiz
+    title: 'Knowledge Check: Run Data Processing Jobs with Argo Workflows'
+    path: sections/section-060/quiz.yaml
+    pass_score: 70
+  - type: quiz
+    title: 'Final Knowledge Check: Argo Workflows'
+    path: sections/final-domain-quiz.yaml
+    pass_score: 70

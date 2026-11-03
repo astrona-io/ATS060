@@ -2,23 +2,64 @@ schema_version: 1
 course_id: ATS060
 status: draft
 banks:
-- id: ats060-section-030
-  path: sections/section-030/questions.yaml
-  question_count: 9
+- id: ats060-010
+  path: sections/section-010/quiz.yaml
+  question_count: 10
   placement:
     position: after
-    reading: sections/section-030/module-01/course-02-summary.md
+    reading: sections/section-010/module-02/course-04-summary.md
+  covered_sections:
+  - section-010
+- id: ats060-020
+  path: sections/section-020/quiz.yaml
+  question_count: 10
+  placement:
+    position: after
+    reading: sections/section-020/module-02/course-04-summary.md
+  covered_sections:
+  - section-020
+- id: ats060-030
+  path: sections/section-030/quiz.yaml
+  question_count: 10
+  placement:
+    position: after
+    reading: sections/section-030/module-02/course-04-summary.md
+  covered_sections:
+  - section-030
+- id: ats060-040
+  path: sections/section-040/quiz.yaml
+  question_count: 10
+  placement:
+    position: after
+    reading: sections/section-040/module-02/course-04-summary.md
+  covered_sections:
+  - section-040
+- id: ats060-050
+  path: sections/section-050/quiz.yaml
+  question_count: 10
+  placement:
+    position: after
+    reading: sections/section-050/module-02/course-04-summary.md
+  covered_sections:
+  - section-050
+- id: ats060-060
+  path: sections/section-060/quiz.yaml
+  question_count: 10
+  placement:
+    position: after
+    reading: sections/section-060/module-02/course-04-summary.md
+  covered_sections:
+  - section-060
+- id: ats060-final
+  path: sections/final-domain-quiz.yaml
+  question_count: 15
+  placement:
+    position: after
+    reading: sections/section-060/module-02/course-04-summary.md
   covered_sections:
   - section-010
   - section-020
   - section-030
-- id: ats060-domain-review
-  path: assessments/domain-review.yaml
-  question_count: 9
-  placement:
-    position: after
-    reading: sections/section-060/module-01/course-02-summary.md
-  covered_sections:
   - section-040
   - section-050
   - section-060

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: survey-run
+  namespace: starfleet
+spec:
+  serviceAccountName: workflow-runner
+  entrypoint: survey
+  activeDeadlineSeconds: 240
+  parallelism: 1
+  ttlStrategy:
+    secondsAfterCompletion: 3600
+  arguments:
+    parameters:
+    - name: ship
+      value: voyager
+  templates:
+  - name: survey
+    activeDeadlineSeconds: 120
+    retryStrategy:
+      limit: "2"
+      retryPolicy: OnFailure
+    container:
+      image: docker.io/library/python:3.13-alpine
+      command:
+      - python
+      - -c
+      args:
+      - 'import sys; attempt=int("{{retries}}"); sys.exit(3) if attempt==0 else open("/tmp/result","w").write("{{workflow.parameters.ship}}")'
+      resources:
+        requests:
+          cpu: 50m
+          memory: 32Mi
+    outputs:
+      parameters:
+      - name: result
+        valueFrom:
+          path: /tmp/result

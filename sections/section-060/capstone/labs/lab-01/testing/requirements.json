@@ -1,0 +1,35 @@
+{
+  "context": "kind-astro-ats-060-capstone-060-01",
+  "resources": [
+    {
+      "kind": "workflow",
+      "name": "batch-run",
+      "namespace": "starfleet",
+      "expected": {
+        "apiVersion": "argoproj.io/v1alpha1",
+        "kind": "Workflow",
+        "metadata": {
+          "name": "batch-run",
+          "namespace": "starfleet",
+          "labels": {
+            "dataset": "survey-2026-01"
+          }
+        },
+        "spec": {
+          "serviceAccountName": "workflow-runner",
+          "entrypoint": "main",
+          "activeDeadlineSeconds": 300,
+          "parallelism": 2,
+          "synchronization": {
+            "mutexes": [
+              {
+                "name": "batch-lock"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "behavior": []
+}
