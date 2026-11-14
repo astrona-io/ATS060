@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://astrona.io/courses/certified-argo-project-associate-capa">
+    <img src="https://astrona.io/courses/certified-argo-project-associate-capa/domains/ATS060.svg" alt="ATS060: Argo Workflows, part of the Certified Argo Project Associate course on Astrona" width="100%">
+  </a>
+</p>
+
 # Argo Workflows (ATS060)
 
 Certified Argo Project Associate (CAPA): Argo Workflows, worth 36% of the official curriculum. This course belongs to ATP012.
